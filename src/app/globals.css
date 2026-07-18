@@ -70,6 +70,16 @@
     scroll-behavior: smooth;
     /* Keep in-page anchors clear of the sticky header. */
     scroll-padding-top: 96px;
+    /*
+     * Clip stray HORIZONTAL overflow at the root scroller. The reveal entrance
+     * animations (fadeInRight/slideIn* start elements at translateX(±100%),
+     * fully off-screen) transiently widen the page as each section animates in,
+     * which on mobile flashes a horizontal scrollbar / lets the page slide
+     * sideways. Must be on <html> (not just <body>) so it also clips fixed
+     * overlays that otherwise inflate to the overflowed width. `clip` clips
+     * without creating a scroll container, so sticky + smooth scroll still work.
+     */
+    overflow-x: clip;
   }
 
   body {
@@ -78,6 +88,10 @@
     font-family: var(--font-sans), system-ui, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    /* Pairs with html's overflow-x: clip — body clips the sliding reveal
+       content, html clips the fixed overlays that echo the overflowed width.
+       Both are needed to fully kill the transient horizontal scroll. */
+    overflow-x: clip;
   }
 
   /* Visible keyboard focus everywhere — the template shipped none. */
@@ -210,15 +224,14 @@
 }
 
 /* Tier C — authored from the wireframe; the template's originals are lost. Plan.md §6.4. */
-@keyframes loadJump {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.35;
+
+/* Preloader progress line — grows left→right across the middle before the split. */
+@keyframes preloadLineGrow {
+  from {
+    transform: scaleX(0);
   }
-  50% {
-    transform: translateY(-18px);
-    opacity: 1;
+  to {
+    transform: scaleX(1);
   }
 }
 

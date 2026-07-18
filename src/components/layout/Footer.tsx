@@ -18,15 +18,31 @@ import { FOOTER, SITE, SOCIALS } from "@/lib/content";
 export function Footer() {
   return (
     <footer id="contact-footer" className="relative overflow-hidden bg-night text-white">
-      {/* Decorative angled shapes — replaces the template's footer shape PNGs. */}
+      {/* Decorative triangles L/R (Tier D — matches the reference footer). */}
+      {/* Left: solid blue triangle pointing right. */}
       <div
         aria-hidden
-        className="sway-y-animation gradient-band absolute left-0 top-1/3 hidden h-64 w-40 opacity-90 [clip-path:polygon(0_0,100%_28%,100%_72%,0_100%)] md:block"
+        className="sway-y-animation gradient-band pointer-events-none absolute left-0 top-[16%] hidden h-[300px] w-[150px] opacity-90 [clip-path:polygon(0_0,100%_50%,0_100%)] md:block"
+      />
+      {/* Right: solid blue triangle pointing left, with a thin outline chevron echo. */}
+      <div
+        aria-hidden
+        className="sway-y-animation gradient-band pointer-events-none absolute right-0 top-[8%] hidden h-[440px] w-[240px] opacity-90 [clip-path:polygon(100%_0,100%_100%,0_50%)] md:block"
       />
       <div
         aria-hidden
-        className="sway-y-animation gradient-band absolute bottom-10 right-0 hidden h-72 w-52 opacity-90 [clip-path:polygon(100%_0,100%_100%,0_78%,0_22%)] md:block"
-      />
+        className="pointer-events-none absolute right-[168px] top-[18%] hidden h-[300px] w-[130px] text-white/25 md:block"
+      >
+        <svg viewBox="0 0 130 300" fill="none" className="h-full w-full">
+          <path
+            d="M126 8 L8 150 L126 292"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
 
       <Container className="relative">
         <div className="grid gap-10 py-[100px] md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">

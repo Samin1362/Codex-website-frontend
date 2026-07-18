@@ -146,9 +146,12 @@ export function easeOutCubic(t: number): number {
  * ------------------------------------------------------------------ */
 
 export const PRELOADER = {
-  letters: ["L", "o", "a", "d", "i", "n", "g"] as const,
-  letterStaggerMs: 100,
-  jumpDurationMs: 1200,
-  /** Ceiling only. The real dismissal gates on `load`; this stops a stalled asset hanging the page. */
-  maxWaitMs: 2600,
+  /** The blue progress line crossing the middle. */
+  lineDurationMs: 1600,
+  /** The two black panels parting (top up / bottom down). */
+  splitDurationMs: 750,
+  /** Keep the loader up at least this long, so the line always finishes crossing. */
+  minShowMs: 1700,
+  /** Ceiling only. Real dismissal gates on `load`; this stops a stalled asset hanging the page. */
+  maxWaitMs: 3000,
 } as const;
