@@ -91,7 +91,7 @@ export function SiteHeader() {
         {/* Angled gradient wedge behind the logo — full-bleed to the left edge. */}
         <div
           aria-hidden
-          className="gradient-brand pointer-events-none absolute inset-y-0 left-0 w-[min(40%,560px)] [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]"
+          className="gradient-brand pointer-events-none absolute inset-y-0 left-0 w-[min(28%,400px)] [clip-path:polygon(0_0,100%_0,90%_100%,0_100%)]"
         />
 
         <Container className="relative flex h-[88px] items-center justify-between">

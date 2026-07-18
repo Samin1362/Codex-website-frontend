@@ -66,12 +66,44 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Keep in-page anchors clear of the sticky header. */
+    scroll-padding-top: 96px;
+  }
+
   body {
     background: #fff;
     color: var(--color-ink);
     font-family: var(--font-sans), system-ui, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible keyboard focus everywhere — the template shipped none. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Skip link: off-screen until focused. */
+  .skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 200;
+    transform: translateY(-160%);
+    background: var(--color-primary);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: transform 0.2s;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
   }
 
   h1,
@@ -112,33 +144,55 @@
 }
 
 /*
- * Hero per-slide choreography (Plan.md §6.2, Tier B). Entrance classes run only
- * while a slide carries Swiper's `swiper-slide-active`; leaving/re-entering that
- * state replays them — the CSS-only equivalent of the template's script.js
- * re-applying WOW classes on slide change. slideInLeft/Right keyframes come from
- * animate.css (imported above); duration/delay ride in per element as vars.
+ * Hero per-slide choreography. IMPORTANT: the copy is visible by DEFAULT — we
+ * never hide `.hero-el` ourselves. Swiper's fade already hides non-active slides
+ * via slide opacity, so hiding here too was redundant AND fragile: if Swiper
+ * failed to mark a slide active (React StrictMode double-mounts it in dev,
+ * breaking loop clones), every `.hero-el` stayed `visibility:hidden` and the
+ * banner went blank. Now the entrance is purely additive — the active slide
+ * replays a short fade-slide; a broken or not-yet-initialised Swiper still shows
+ * the copy. Keyframes below drive the opacity 0→1, so the entrance still reads.
  */
-/* Only pre-hide when scripting is available; a no-JS visitor sees the hero copy
- * plainly (Swiper never initialises to reveal it otherwise). Same guardrail as
- * the reveal system above. */
-@media (scripting: enabled) {
-  .hero-el {
-    visibility: hidden;
-  }
-}
-
 .swiper-slide-active .hero-el {
-  animation-duration: var(--hero-dur, 2s);
+  animation-duration: var(--hero-dur, 1s);
   animation-delay: var(--hero-delay, 0s);
   animation-fill-mode: both;
 }
 
+/*
+ * Gentle short fade-slide instead of animate.css slideIn*. The stock keyframes
+ * start the element fully off-screen (100% translate), so the copy is absent for
+ * most of the ~2s travel and the banner reads as empty. A ~48px fade lands the
+ * content near its final spot almost immediately — calm, and visible fast.
+ */
+@keyframes heroInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroInRight {
+  from {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .swiper-slide-active .hero-el.is-left {
-  animation-name: slideInLeft;
+  animation-name: heroInLeft;
 }
 
 .swiper-slide-active .hero-el.is-right {
-  animation-name: slideInRight;
+  animation-name: heroInRight;
 }
 
 /* Tier C — authored from the wireframe; the template's originals are lost. Plan.md §6.4. */

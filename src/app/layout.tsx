@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Sora, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Preloader } from "@/components/layout/Preloader";
@@ -19,8 +19,26 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Codex",
-  description: "Codex landing page",
+  title: {
+    default: "Codex — Excellent IT Services for Your Success",
+    template: "%s · Codex",
+  },
+  description:
+    "Codex builds the platforms, security and infrastructure modern teams run on — reliable systems delivered with clarity.",
+  keywords: ["Codex", "IT services", "cyber security", "web development"],
+  openGraph: {
+    title: "Codex — Excellent IT Services for Your Success",
+    description:
+      "Codex builds the platforms, security and infrastructure modern teams run on.",
+    siteName: "Codex",
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#3c72fc",
 };
 
 export default function RootLayout({
@@ -31,13 +49,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${sora.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <Preloader />
         <CustomCursor />
         <SiteHeader />
-        <div className="flex-1">{children}</div>
+        <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
+          {children}
+        </div>
         <Footer />
         <ScrollUp />
       </body>

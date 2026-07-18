@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import { Container } from "@/components/ui/Container";
 import { CircuitTrace } from "@/components/icons";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { BRAND_SLIDER } from "@/lib/animations";
 import { BRANDS } from "@/lib/content";
 
@@ -16,6 +17,8 @@ import { BRANDS } from "@/lib/content";
  * placeholder partner marks (Plan.md §7).
  */
 export function Brands() {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <section className="relative z-10 -mt-[clamp(90px,13vw,140px)]">
       <Container>
@@ -29,7 +32,11 @@ export function Brands() {
             freeMode
             allowTouchMove={false}
             speed={BRAND_SLIDER.speed}
-            autoplay={{ delay: BRAND_SLIDER.autoplayDelay, disableOnInteraction: false }}
+            autoplay={
+              reduced
+                ? false
+                : { delay: BRAND_SLIDER.autoplayDelay, disableOnInteraction: false }
+            }
             className="relative !ease-linear"
           >
             {[...BRANDS, ...BRANDS].map((brand, i) => (

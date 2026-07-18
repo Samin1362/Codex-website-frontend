@@ -11,6 +11,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { ArrowRightIcon } from "@/components/icons";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { CASE_SLIDER } from "@/lib/animations";
 import { CASES } from "@/lib/content";
 
@@ -20,6 +21,8 @@ import { CASES } from "@/lib/content";
  * overflow the right edge, with clickable dot pagination below.
  */
 export function CaseStudies() {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <section id="case-studies" className="section-y overflow-hidden">
       <Container>
@@ -50,7 +53,11 @@ export function CaseStudies() {
           spaceBetween={28}
           loop={CASES.items.length > 3}
           speed={CASE_SLIDER.speed}
-          autoplay={{ delay: CASE_SLIDER.autoplayDelay, disableOnInteraction: false }}
+          autoplay={
+            reduced
+              ? false
+              : { delay: CASE_SLIDER.autoplayDelay, disableOnInteraction: false }
+          }
           pagination={{ clickable: true, el: ".case-pagination" }}
           className="!overflow-visible"
         >
