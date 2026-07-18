@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/* Real keyframes for the 10 effects the template drives via WOW.js. See Plan.md §6.1. */
+@import "animate.css/source/fading_entrances/fadeIn.css";
+@import "animate.css/source/fading_entrances/fadeInUp.css";
+@import "animate.css/source/fading_entrances/fadeInDown.css";
+@import "animate.css/source/fading_entrances/fadeInLeft.css";
+@import "animate.css/source/fading_entrances/fadeInRight.css";
+@import "animate.css/source/fading_entrances/fadeInUpBig.css";
+@import "animate.css/source/fading_entrances/fadeInDownBig.css";
+@import "animate.css/source/bouncing_entrances/bounceInUp.css";
+@import "animate.css/source/sliding_entrances/slideInLeft.css";
+@import "animate.css/source/sliding_entrances/slideInRight.css";
+
+@theme {
+  --color-primary: #3c72fc;
+  --color-primary-deep: #2a5be0;
+  --color-primary-dark: #1b3aa0;
+  --color-primary-soft: #5b8bff;
+  --color-ink: #0f0d1d;
+  --color-night: #0a0a14;
+  --color-navy: #0b1428;
+  --color-muted: #5b6577;
+  --color-sub: #f2f5fb;
+  --color-mist: #eef2f8;
+  --color-line: #eef1f7;
+
+  --text-h1: clamp(38px, 6.4vw, 74px);
+  --text-h2: clamp(30px, 4.2vw, 50px);
+  --text-h2-narrow: clamp(28px, 3.8vw, 46px);
+  --text-stat: clamp(28px, 3.4vw, 42px);
+
+  --shadow-card: 0 10px 30px rgba(16, 24, 64, 0.06);
+  --shadow-raised: 0 12px 34px rgba(16, 24, 64, 0.07);
+  --shadow-cta: 0 14px 34px rgba(60, 114, 252, 0.4);
+}
+
+@theme inline {
+  --font-sans: var(--font-dm-sans);
+  --font-heading: var(--font-sora);
+}
+
+@utility site-container {
+  width: min(1290px, 100% - 48px);
+  margin-inline: auto;
+}
+
+@utility section-y {
+  padding-block: clamp(64px, 10vw, 120px);
+}
+
+@utility gradient-brand {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary-dark),
+    var(--color-primary)
+  );
+}
+
+@utility gradient-band {
+  background-image: linear-gradient(
+    120deg,
+    var(--color-primary-deep),
+    var(--color-primary)
+  );
+}
+
+@layer base {
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), system-ui, sans-serif;
+    line-height: 1.14;
+    letter-spacing: -1px;
+  }
+
+  h1 {
+    letter-spacing: -1.5px;
+  }
+}
+
+/*
+ * Scroll reveal — our replacement for WOW.js. See Plan.md §6.1.
+ *
+ * Only hide pre-animation elements when scripting is actually available, so a
+ * no-JS visitor (or a browser too old for this query) gets the content rendered
+ * plainly instead of a blank page. Both failure modes land on "visible, not
+ * animated", which is the right way round.
+ */
+@media (scripting: enabled) {
+  .reveal:not(.is-revealed) {
+    visibility: hidden;
+  }
+}
+
+.reveal.is-revealed {
+  visibility: visible;
+  animation-duration: var(--reveal-duration, 1500ms);
+  animation-delay: var(--reveal-delay, 0ms);
+  animation-fill-mode: both;
+}
+
+/* Tier C — authored from the wireframe; the template's originals are lost. Plan.md §6.4. */
+@keyframes loadJump {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-18px);
+    opacity: 1;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-24px);
+  }
+}
+
+@keyframes swayX {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-24px);
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(22px, -26px) scale(1.08);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 22px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sway-animation {
+  animation: swayX 11s ease-in-out infinite;
+}
+
+.sway-y-animation {
+  animation: sway 11s ease-in-out infinite;
+}
+
+.bobble-animation {
+  animation: floaty 11s ease-in-out infinite;
+}
+
+.pulse-ring {
+  animation: pulseRing 2.4s infinite;
+}
+
+/*
+ * The template ships no reduced-motion handling at all; this is ours. Covers the
+ * animate.css entrances, the Tier C loops, and any Swiper-driven transform.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-revealed {
+    visibility: visible !important;
+    animation: none !important;
+  }
+
+  .sway-animation,
+  .sway-y-animation,
+  .bobble-animation,
+  .pulse-ring {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
