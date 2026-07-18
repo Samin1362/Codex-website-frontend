@@ -34,7 +34,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 lg:hidden ${open ? "" : "pointer-events-none"}`}
+      className={`fixed inset-0 z-50 overflow-hidden lg:hidden ${open ? "" : "pointer-events-none"}`}
       aria-hidden={!open}
     >
       {/* Overlay */}

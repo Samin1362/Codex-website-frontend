@@ -1,15 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, FreeMode, Pagination } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { ArrowRightIcon } from "@/components/icons";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { CASE_SLIDER } from "@/lib/animations";
@@ -48,15 +49,27 @@ export function CaseStudies() {
 
       <Container className="!w-[min(1290px,100%-48px)]">
         <Swiper
-          modules={[Autoplay, Pagination]}
+          modules={[Autoplay, FreeMode, Pagination]}
           slidesPerView="auto"
           spaceBetween={28}
+          grabCursor
+          freeMode={{
+            enabled: true,
+            momentum: true,
+            momentumRatio: 0.7,
+            momentumVelocityRatio: 0.7,
+            sticky: false,
+          }}
           loop={CASES.items.length > 3}
           speed={CASE_SLIDER.speed}
           autoplay={
             reduced
               ? false
-              : { delay: CASE_SLIDER.autoplayDelay, disableOnInteraction: false }
+              : {
+                  delay: CASE_SLIDER.autoplayDelay,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }
           }
           pagination={{ clickable: true, el: ".case-pagination" }}
           className="!overflow-visible"
@@ -64,7 +77,13 @@ export function CaseStudies() {
           {CASES.items.map((item) => (
             <SwiperSlide key={item.title} className="!w-[340px] max-w-[80vw]">
               <article className="group relative aspect-[3/4] overflow-hidden">
-                <Placeholder label="Case photo" rounded="" className="h-full w-full" />
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="340px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
                 <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-7">
                   <span className="text-sm font-semibold text-primary-soft">

@@ -1,51 +1,37 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/content";
 
 type LogoProps = {
-  /** `light` = white mark + white text (header wedge); `brand` = blue mark + white text (footer). */
+  /** Kept for call-site compatibility; both placements are dark, so the white
+   *  logo is used throughout. */
   variant?: "light" | "brand";
   className?: string;
 };
 
 /**
- * Codex wordmark. The mark is a network-node "X" — placeholder for the real
- * Codex logo (Plan.md open question #2). Two colourways cover both placements:
- * the white-on-wedge header and the blue-on-dark footer.
+ * Codex IT Service logo — the "CK" wordmark. Processed from the supplied
+ * public/logo/logo.jpeg (navy-on-white, no transparency) into a white-on-
+ * transparent PNG so it reads on the dark header wedge and the footer. A
+ * full-colour transparent version (logo-color.png) is available for any future
+ * light-background placement.
  */
-export function Logo({ variant = "light", className = "" }: LogoProps) {
-  const mark = variant === "brand" ? "text-primary" : "text-white";
-
+export function Logo({ className = "" }: LogoProps) {
   return (
     <Link
       href="#home"
-      className={`inline-flex items-center gap-[10px] ${className}`.trim()}
-      aria-label={`${SITE.name} home`}
+      className={`inline-flex items-center ${className}`.trim()}
+      aria-label={`${SITE.name} IT Service home`}
     >
-      <LogoMark className={`h-9 w-9 shrink-0 ${mark}`} />
-      <span className="font-heading text-[26px] font-extrabold tracking-[-1px] text-white">
-        {SITE.name}
-      </span>
+      <Image
+        src="/logo/logo-white.png"
+        alt={`${SITE.name} IT Service`}
+        width={1011}
+        height={278}
+        priority
+        unoptimized
+        className="h-8 w-auto lg:h-9"
+      />
     </Link>
-  );
-}
-
-function LogoMark({ className = "" }: { className?: string }) {
-  // Five nodes on an X, linked through the centre. currentColor drives the fill.
-  const nodes: [number, number][] = [
-    [20, 20],
-    [6, 6],
-    [34, 6],
-    [6, 34],
-    [34, 34],
-  ];
-  return (
-    <svg viewBox="0 0 40 40" fill="none" aria-hidden className={className}>
-      <g stroke="currentColor" strokeWidth="2.4" opacity="0.9">
-        <path d="M20 20 6 6M20 20 34 6M20 20 6 34M20 20 34 34" />
-      </g>
-      {nodes.map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r={i === 0 ? 5 : 4} fill="currentColor" />
-      ))}
-    </svg>
   );
 }

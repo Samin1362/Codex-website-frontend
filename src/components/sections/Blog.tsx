@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -30,9 +31,19 @@ export function Blog() {
               delay={i * 200}
               className="overflow-hidden border border-line bg-white shadow-card transition-shadow hover:shadow-raised"
             >
-              <div className="relative">
-                <Placeholder label="Blog photo" rounded="rounded-none" className="aspect-[16/10]" />
-                <div className="absolute left-6 top-6 flex flex-col items-center bg-primary px-4 py-2 text-white">
+              <div className="relative aspect-[16/10] overflow-hidden">
+                {post.image ? (
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <Placeholder label="Blog photo" rounded="rounded-none" className="h-full w-full" />
+                )}
+                <div className="absolute left-6 top-6 z-10 flex flex-col items-center bg-primary px-4 py-2 text-white">
                   <span className="font-heading text-xl font-extrabold leading-none">
                     {post.day}
                   </span>

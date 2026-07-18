@@ -122,16 +122,19 @@ export const PROCESS = {
       n: 1,
       title: "Define Requirements",
       body: "In a free hour, when our power of choice is untrammelled and when nothing prevents dolor sit amet, consectetur",
+      image: "/images/7.png",
     },
     {
       n: 2,
       title: "Design & Prototyping",
       body: "In a free hour, when our power of choice is untrammelled and when nothing prevents dolor sit amet, consectetur",
+      image: "/images/8.png",
     },
     {
       n: 3,
       title: "Final Solution",
       body: "In a free hour, when our power of choice is untrammelled and when nothing prevents dolor sit amet, consectetur",
+      image: "/images/9.png",
     },
   ],
 } as const;
@@ -143,20 +146,23 @@ export const BLOG = {
     {
       day: "10",
       month: "Dec",
-      title: "Necessity May Give us Best Virtual Court",
+      title: "10 Web Development Trends to Watch in 2025",
       href: "#0",
+      image: "/images/5.jpeg",
     },
     {
       day: "12",
       month: "Dec",
       title: "Tackling the Changes of Retail Industry",
       href: "#0",
+      image: "/images/14.png",
     },
     {
       day: "15",
       month: "Dec",
       title: "Easy and Most Powerful Server and Platform",
       href: "#0",
+      image: "/images/15.png",
     },
   ],
 } as const;
@@ -191,10 +197,10 @@ export const CASES = {
   title: "We Delivered Best Solution",
   cta: { label: "View All Case", href: "#0" },
   items: [
-    { category: "Solution", title: "IT Management", href: "#0" },
-    { category: "Technology", title: "Platform Integration", href: "#0" },
-    { category: "Solution", title: "Web Development", href: "#0" },
-    { category: "Security", title: "Network Security", href: "#0" },
+    { category: "Solution", title: "IT Management", href: "#0", image: "/images/12.png" },
+    { category: "Technology", title: "Platform Integration", href: "#0", image: "/images/10.png" },
+    { category: "Solution", title: "Web Development", href: "#0", image: "/images/13.png" },
+    { category: "Security", title: "Network Security", href: "#0", image: "/images/11.png" },
   ],
 } as const;
 

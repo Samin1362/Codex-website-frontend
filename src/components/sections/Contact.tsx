@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -20,16 +21,20 @@ export function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden bg-mist py-[clamp(64px,10vw,120px)]">
       {/* Photo bleeding off the left edge, behind the form card. */}
-      <Placeholder
-        label="Team photo"
-        rounded="rounded-none"
-        className="absolute inset-y-0 left-0 hidden w-[42%] lg:block"
-      />
+      <div className="absolute inset-y-0 left-0 hidden w-[42%] overflow-hidden lg:block">
+        <Image
+          src="/images/4.jpeg"
+          alt="Codex IT Service workspace"
+          fill
+          sizes="(max-width: 1024px) 0px, 42vw"
+          className="object-cover"
+        />
+      </div>
 
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Contact form */}
-          <Reveal effect="fadeInLeft" delay={200}>
+          <Reveal effect="fadeInLeft" delay={200} className="min-w-0">
             <div className="gradient-band p-8 text-white shadow-cta sm:p-10 lg:ml-8">
               <Eyebrow tone="light" className="mb-4">
                 {CONTACT.eyebrow}
@@ -65,7 +70,7 @@ export function Contact() {
           </Reveal>
 
           {/* Reviews */}
-          <div className="lg:pl-6">
+          <div className="min-w-0 lg:pl-6">
             <Reveal effect="fadeInUp" delay={0} className="mb-4">
               <Eyebrow tone="primary">{TESTIMONIALS.eyebrow}</Eyebrow>
             </Reveal>
@@ -83,6 +88,7 @@ export function Contact() {
                 loop
                 speed={700}
                 navigation={{ prevEl: ".testi-prev", nextEl: ".testi-next" }}
+                className="w-full min-w-0"
               >
                 {TESTIMONIALS.items.map((t) => (
                   <SwiperSlide key={t.name}>

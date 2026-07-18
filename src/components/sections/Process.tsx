@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { PROCESS } from "@/lib/content";
 
 /**
@@ -57,11 +57,13 @@ export function Process() {
                   aria-hidden
                   className="spin-slow-animation absolute inset-0 rounded-full border-2 border-dashed border-primary/45"
                 />
-                <div className="absolute inset-[10px]">
-                  <Placeholder
-                    label="Step photo"
-                    rounded="rounded-full"
-                    className="h-full w-full"
+                <div className="absolute inset-[10px] overflow-hidden rounded-full">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    sizes="200px"
+                    className="object-cover"
                   />
                 </div>
                 <span className="absolute left-2 top-2 flex h-11 w-11 items-center justify-center rounded-full bg-primary font-heading text-lg font-bold text-white">

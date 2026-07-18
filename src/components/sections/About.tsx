@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -30,12 +31,25 @@ export function About() {
               className="absolute -right-2 top-6 hidden h-40 w-40 rounded-full border-[26px] border-primary/90 sm:block"
             />
             <div className="relative flex items-end gap-0">
-              <Placeholder label="About photo" className="aspect-[4/5] w-[62%] shadow-raised" />
-              <div className="relative -ml-16 mb-10 w-[52%]">
-                <Placeholder
-                  label="Video"
-                  className="aspect-square w-full border-[6px] border-white shadow-raised"
+              <div className="relative aspect-[4/5] w-[62%] overflow-hidden shadow-raised">
+                <Image
+                  src="/images/1.jpeg"
+                  alt="Inside the Codex IT Service office"
+                  fill
+                  sizes="(max-width: 1024px) 60vw, 320px"
+                  className="object-cover"
                 />
+              </div>
+              <div className="relative -ml-16 mb-10 w-[52%]">
+                <div className="relative aspect-square w-full overflow-hidden border-[6px] border-white shadow-raised">
+                  <Image
+                    src="/images/3.jpeg"
+                    alt="Codex team collaborating around a table"
+                    fill
+                    sizes="(max-width: 1024px) 45vw, 260px"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <a
                     href="#0"
