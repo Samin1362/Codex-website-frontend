@@ -22,7 +22,7 @@ export function Brands() {
   return (
     <section className="relative z-10 -mt-[clamp(90px,13vw,140px)]">
       <Container>
-        <div className="gradient-band relative overflow-hidden rounded-[8px] px-6 py-10 shadow-cta">
+        <div className="gradient-band relative overflow-hidden px-6 py-10 shadow-cta">
           <CircuitTrace className="pointer-events-none absolute right-0 top-0 hidden h-full w-72 text-white/15 lg:block" />
           <Swiper
             modules={[Autoplay, FreeMode]}

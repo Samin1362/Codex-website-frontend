@@ -55,7 +55,7 @@ export function Services() {
                 effect="bounceInUp"
                 duration={REVEAL_DURATION.card}
                 delay={stagger(i)}
-                className={`group relative overflow-hidden rounded-[6px] p-10 transition-shadow ${
+                className={`group relative overflow-hidden p-10 transition-shadow ${
                   active
                     ? "gradient-band text-white shadow-cta"
                     : "border border-line bg-white text-ink shadow-card hover:shadow-raised"
@@ -67,7 +67,7 @@ export function Services() {
                   }`}
                 />
                 <div
-                  className={`relative flex h-16 w-16 items-center justify-center rounded-[6px] ${
+                  className={`relative flex h-16 w-16 items-center justify-center ${
                     active ? "bg-white text-primary" : "bg-sub text-primary"
                   }`}
                 >

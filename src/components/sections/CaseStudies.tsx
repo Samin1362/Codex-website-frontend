@@ -63,8 +63,8 @@ export function CaseStudies() {
         >
           {CASES.items.map((item) => (
             <SwiperSlide key={item.title} className="!w-[340px] max-w-[80vw]">
-              <article className="group relative aspect-[3/4] overflow-hidden rounded-[6px]">
-                <Placeholder label="Case photo" rounded="rounded-[6px]" className="h-full w-full" />
+              <article className="group relative aspect-[3/4] overflow-hidden">
+                <Placeholder label="Case photo" rounded="" className="h-full w-full" />
                 <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-7">
                   <span className="text-sm font-semibold text-primary-soft">
@@ -79,7 +79,7 @@ export function CaseStudies() {
                 <Link
                   href={item.href}
                   aria-label={item.title}
-                  className="absolute bottom-7 right-7 flex h-11 w-11 translate-y-2 items-center justify-center rounded-[4px] bg-primary text-white opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
+                  className="absolute bottom-7 right-7 flex h-11 w-11 translate-y-2 items-center justify-center bg-primary text-white opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
                 >
                   <ArrowRightIcon />
                 </Link>

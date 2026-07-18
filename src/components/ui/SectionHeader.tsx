@@ -25,25 +25,28 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   const onDark = tone !== "primary";
 
+  const centered = align === "center";
+
   return (
-    <div
-      className={`${align === "center" ? "mx-auto max-w-[640px] text-center" : ""} ${className}`.trim()}
-    >
+    <div className={`${centered ? "mx-auto text-center" : ""} ${className}`.trim()}>
       <Eyebrow tone={tone} align={align} className="mb-4">
         {eyebrow}
       </Eyebrow>
+      {/* Centered titles get a generous cap so single-line headings
+          (e.g. "Our Development Process") don't break awkwardly; the lede
+          stays at a comfortable reading width below it. */}
       <h2
         className={`font-extrabold text-balance ${
           narrow ? "text-h2-narrow" : "text-h2"
-        } ${onDark ? "text-white" : ""}`}
+        } ${centered ? "mx-auto max-w-[820px]" : ""} ${onDark ? "text-white" : ""}`}
       >
         {title}
       </h2>
       {description && (
         <p
           className={`mt-[18px] text-base ${
-            onDark ? "text-white/70" : "text-muted"
-          }`}
+            centered ? "mx-auto max-w-[620px]" : ""
+          } ${onDark ? "text-white/70" : "text-muted"}`}
         >
           {description}
         </p>

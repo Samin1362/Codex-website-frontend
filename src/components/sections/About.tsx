@@ -71,7 +71,7 @@ export function About() {
                 const Icon = ICONS[f.icon];
                 return (
                   <div key={f.title} className="flex items-start gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[6px] bg-white text-primary shadow-card">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center bg-white text-primary shadow-card">
                       <Icon />
                     </div>
                     <div>

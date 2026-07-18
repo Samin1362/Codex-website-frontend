@@ -28,11 +28,11 @@ export function Blog() {
               key={post.title}
               effect="fadeInUp"
               delay={i * 200}
-              className="overflow-hidden rounded-[6px] border border-line bg-white shadow-card transition-shadow hover:shadow-raised"
+              className="overflow-hidden border border-line bg-white shadow-card transition-shadow hover:shadow-raised"
             >
               <div className="relative">
                 <Placeholder label="Blog photo" rounded="rounded-none" className="aspect-[16/10]" />
-                <div className="absolute left-6 top-6 flex flex-col items-center rounded-[4px] bg-primary px-4 py-2 text-white">
+                <div className="absolute left-6 top-6 flex flex-col items-center bg-primary px-4 py-2 text-white">
                   <span className="font-heading text-xl font-extrabold leading-none">
                     {post.day}
                   </span>

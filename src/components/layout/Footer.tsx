@@ -42,7 +42,7 @@ export function Footer() {
                   key={s.name}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-white/15 text-white/80 transition hover:border-primary hover:bg-primary hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center border border-white/15 text-white/80 transition hover:border-primary hover:bg-primary hover:text-white"
                 >
                   <SocialIcon name={s.name} />
                 </a>

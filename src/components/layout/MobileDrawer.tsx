@@ -65,7 +65,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
           </button>
         </div>
 
-        <div className="mb-7 flex items-center rounded-[4px] bg-white/10 px-4">
+        <div className="mb-7 flex items-center bg-white/10 px-4">
           <input
             type="search"
             placeholder="Search..."
@@ -115,7 +115,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
               key={s.name}
               href={s.href}
               aria-label={s.label}
-              className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-white/15 text-white/80 transition hover:border-primary hover:bg-primary hover:text-white"
+              className="flex h-10 w-10 items-center justify-center border border-white/15 text-white/80 transition hover:border-primary hover:bg-primary hover:text-white"
             >
               <SocialIcon name={s.name} />
             </a>

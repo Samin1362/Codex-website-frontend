@@ -72,7 +72,7 @@ export function Offering() {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
           {OFFERING.items.map((item, i) => {
             const Icon = ICONS[item.icon];
             return (
@@ -80,14 +80,38 @@ export function Offering() {
                 key={item.label}
                 effect="bounceInUp"
                 delay={i * REVEAL_DELAY.step1}
-                className="group flex flex-col items-center rounded-[6px] border border-white/10 bg-white/[0.02] px-4 py-9 text-center transition-colors hover:border-primary/50 hover:bg-white/[0.04]"
+                className="group relative"
               >
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#12121f] text-primary-soft shadow-[0_0_0_6px_rgba(91,139,255,0.06)] transition-transform group-hover:-translate-y-1">
-                  <Icon width={30} height={30} />
+                {/* Card body — sharp corners; overflow-hidden clips the hover triangles. */}
+                <div className="relative mt-8 flex min-h-[150px] flex-col items-center justify-center overflow-hidden border border-white/10 bg-white/[0.02] px-4 pb-7 pt-10 text-center transition-colors duration-300 group-hover:border-primary/40">
+                  {/* Corner triangles emerge from the card centre and travel outward to
+                      the top-right & bottom-left corners on hover. */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute right-0 top-0 h-20 w-20 -translate-x-16 translate-y-16 scale-50 opacity-0 transition-all duration-500 ease-out [background:linear-gradient(135deg,#5b83ff,#2a52e0)] [clip-path:polygon(0_0,100%_0,100%_100%)] group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100"
+                  />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute bottom-0 left-0 h-20 w-20 translate-x-16 -translate-y-16 scale-50 opacity-0 transition-all duration-500 ease-out [background:linear-gradient(135deg,#2a52e0,#5b83ff)] [clip-path:polygon(0_0,100%_100%,0_100%)] group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100"
+                  />
+
+                  <h4 className="relative font-heading text-lg font-bold text-white">
+                    {item.label}
+                  </h4>
+                </div>
+
+                {/* Icon badge — straddles the top edge; spins 3 turns & brightens on hover. */}
+                <span className="absolute left-1/2 top-0 flex h-16 w-16 -translate-x-1/2 items-center justify-center overflow-hidden rounded-full [background:radial-gradient(circle_at_30%_25%,#1b2444,#0b0f1e)] shadow-[0_10px_30px_rgba(6,10,25,0.6)] [perspective:500px]">
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 [background:linear-gradient(150deg,#4f7bf5,#1e3aa8)] group-hover:opacity-100"
+                  />
+                  <Icon
+                    width={30}
+                    height={30}
+                    className="relative z-10 text-primary-soft transition-[transform,color] duration-700 ease-out [transform-style:preserve-3d] group-hover:text-white group-hover:[transform:rotateY(360deg)]"
+                  />
                 </span>
-                <h4 className="mt-5 font-heading text-lg font-bold text-white">
-                  {item.label}
-                </h4>
               </Reveal>
             );
           })}

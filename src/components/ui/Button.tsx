@@ -12,11 +12,11 @@ type ButtonProps = {
 };
 
 const BASE =
-  "inline-flex items-center gap-[10px] gradient-brand text-white font-bold rounded-[3px] transition";
+  "inline-flex items-center gap-[10px] gradient-brand text-white font-bold transition";
 
 /**
- * The template's one button: a 135° brand gradient, near-square corners, and a
- * trailing arrow. Radius is 3px throughout — this design is deliberately not rounded.
+ * The template's one button: a 135° brand gradient, sharp (zero-radius) corners,
+ * and a trailing arrow. This design is deliberately not rounded.
  */
 export function Button({
   children,

@@ -125,7 +125,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-4">
             <Link
               href={QUOTE_CTA.href}
-              className="gradient-brand hidden items-center gap-[10px] rounded-[3px] px-7 py-4 text-[15px] font-bold text-white shadow-cta transition hover:brightness-110 lg:inline-flex"
+              className="gradient-brand hidden items-center gap-[10px] px-7 py-4 text-[15px] font-bold text-white shadow-cta transition hover:brightness-110 lg:inline-flex"
             >
               {QUOTE_CTA.label}
               <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden>
