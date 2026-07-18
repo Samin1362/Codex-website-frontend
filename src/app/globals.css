@@ -136,6 +136,20 @@
   }
 }
 
+/*
+ * CRITICAL: strip the animate.css `animation-name` until the element is
+ * revealed. The effect classes (.fadeInUp, .fadeInLeft, …) set animation-name
+ * from page load, which anchors the animation's timeline at load — so it runs
+ * and *finishes* within its duration while the element is still off-screen, and
+ * adding `.is-revealed` on scroll only changes the duration (never restarts it).
+ * The result: the section just appears at its end state with no motion. Clearing
+ * the name here means the animation is created fresh — and actually plays — the
+ * moment `.is-revealed` restores the name as the element scrolls into view.
+ */
+.reveal:not(.is-revealed) {
+  animation-name: none;
+}
+
 .reveal.is-revealed {
   visibility: visible;
   animation-duration: var(--reveal-duration, 1500ms);
