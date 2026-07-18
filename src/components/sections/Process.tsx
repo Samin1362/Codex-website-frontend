@@ -28,24 +28,23 @@ export function Process() {
               delay={i * 200}
               className="relative text-center"
             >
-              {/* Bobbling arrow to the next step */}
+              {/* Solid curved swoosh bridging to the next step (matches shot 6). */}
               {i < PROCESS.steps.length - 1 && (
                 <div
                   aria-hidden
-                  className="bobble-animation absolute -right-9 top-24 hidden text-primary/40 md:block"
+                  className="bobble-animation absolute -right-6 top-[104px] hidden text-primary/25 md:block"
                 >
-                  <svg width="70" height="34" viewBox="0 0 70 34" fill="none">
+                  <svg width="78" height="36" viewBox="0 0 78 36" fill="none">
                     <path
-                      d="M2 24C14 6 34 4 58 12"
+                      d="M3 25C22 6 46 5 66 17"
                       stroke="currentColor"
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                       strokeLinecap="round"
-                      strokeDasharray="1 7"
                     />
                     <path
-                      d="M50 6l10 6-8 9"
+                      d="M57 8l11 8.5-8.5 11"
                       stroke="currentColor"
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
@@ -53,16 +52,18 @@ export function Process() {
                 </div>
               )}
 
-              <div className="relative mx-auto w-[220px]">
+              <div className="relative mx-auto aspect-square w-[220px]">
                 <span
                   aria-hidden
-                  className="absolute inset-0 rounded-full border-2 border-dashed border-primary/40"
+                  className="spin-slow-animation absolute inset-0 rounded-full border-2 border-dashed border-primary/45"
                 />
-                <Placeholder
-                  label="Step photo"
-                  rounded="rounded-full"
-                  className="m-3 aspect-square"
-                />
+                <div className="absolute inset-[10px]">
+                  <Placeholder
+                    label="Step photo"
+                    rounded="rounded-full"
+                    className="h-full w-full"
+                  />
+                </div>
                 <span className="absolute left-2 top-2 flex h-11 w-11 items-center justify-center rounded-full bg-primary font-heading text-lg font-bold text-white">
                   {step.n}
                 </span>

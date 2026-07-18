@@ -162,9 +162,10 @@ export const BLOG = {
 } as const;
 
 /**
- * Hero slides. The template ships identical copy on all 3 slides (filler);
- * Plan.md §5 calls for three distinct Codex headlines — done here. Only the
- * background changes per slide in the template; choreography is identical (§6.2).
+ * Hero slides. The template ships identical copy on all 3 slides (filler) — we
+ * match that here so the rotating banner always reads exactly like the reference
+ * (only the choreography replays per slide, §6.2). Distinct Codex headlines land
+ * with the real copy pass in Phase 5.
  */
 export const HERO = {
   eyebrow: "Best IT Solution Provider",
@@ -175,12 +176,12 @@ export const HERO = {
       body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
     },
     {
-      title: "Secure Platforms Built to Scale With You",
-      body: "From cloud infrastructure to cyber security, Codex ships resilient systems that keep your teams moving and your data protected around the clock.",
+      title: "Excellent It Services for Your Success",
+      body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
     },
     {
-      title: "Engineering the Technology Behind Your Growth",
-      body: "Web, mobile and connected products delivered end to end — designed, built and supported by a team that treats your roadmap as its own.",
+      title: "Excellent It Services for Your Success",
+      body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
     },
   ],
 } as const;

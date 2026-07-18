@@ -16,7 +16,7 @@ export function Counter() {
   return (
     <section className="relative z-10 -mt-[clamp(90px,13vw,150px)]">
       <Container>
-        <div className="gradient-band relative overflow-hidden rounded-[8px] px-8 py-12 shadow-cta sm:px-14">
+        <div className="gradient-band relative overflow-hidden px-8 py-12 shadow-cta sm:px-14">
           <CircuitTrace className="pointer-events-none absolute right-4 top-1/2 hidden h-40 w-64 -translate-y-1/2 text-white/20 lg:block" />
           <div className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {COUNTER_STATS.map((stat, i) => (

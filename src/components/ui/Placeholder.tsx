@@ -16,7 +16,7 @@ type PlaceholderProps = {
 export function Placeholder({
   label,
   className = "",
-  rounded = "rounded-[6px]",
+  rounded = "",
   style,
 }: PlaceholderProps) {
   return (

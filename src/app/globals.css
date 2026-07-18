@@ -84,7 +84,7 @@
   :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 0;
   }
 
   /* Skip link: off-screen until focused. */
@@ -97,7 +97,7 @@
     background: var(--color-primary);
     color: #fff;
     padding: 10px 18px;
-    border-radius: 4px;
+    border-radius: 0;
     font-weight: 700;
     transition: transform 0.2s;
   }
@@ -304,6 +304,11 @@
   animation: floaty 11s ease-in-out infinite;
 }
 
+/* Slow clockwise rotation for the Process step's dashed ring (§6 shot 6). */
+.spin-slow-animation {
+  animation: spin 22s linear infinite;
+}
+
 .pulse-ring {
   animation: pulseRing 2.4s infinite;
 }
@@ -323,6 +328,7 @@
   .sway-animation,
   .sway-y-animation,
   .bobble-animation,
+  .spin-slow-animation,
   .pulse-ring {
     animation: none !important;
   }

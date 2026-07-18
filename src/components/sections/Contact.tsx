@@ -30,7 +30,7 @@ export function Contact() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Contact form */}
           <Reveal effect="fadeInLeft" delay={200}>
-            <div className="gradient-band rounded-[8px] p-8 text-white shadow-cta sm:p-10 lg:ml-8">
+            <div className="gradient-band p-8 text-white shadow-cta sm:p-10 lg:ml-8">
               <Eyebrow tone="light" className="mb-4">
                 {CONTACT.eyebrow}
               </Eyebrow>
@@ -42,7 +42,7 @@ export function Contact() {
                     <input
                       type={field.type}
                       placeholder={field.placeholder}
-                      className="mt-2 h-12 w-full rounded-[4px] bg-white px-4 text-[15px] text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
+                      className="mt-2 h-12 w-full bg-white px-4 text-[15px] text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
                     />
                   </label>
                 ))}
@@ -51,12 +51,12 @@ export function Contact() {
                   <textarea
                     rows={4}
                     placeholder="Write Message"
-                    className="mt-2 w-full rounded-[4px] bg-white px-4 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
+                    className="mt-2 w-full bg-white px-4 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
                   />
                 </label>
                 <button
                   type="submit"
-                  className="mt-1 h-14 rounded-[4px] bg-ink font-heading font-bold text-white transition hover:bg-night sm:col-span-2"
+                  className="mt-1 h-14 bg-ink font-heading font-bold text-white transition hover:bg-night sm:col-span-2"
                 >
                   {CONTACT.submit}
                 </button>
@@ -86,7 +86,7 @@ export function Contact() {
               >
                 {TESTIMONIALS.items.map((t) => (
                   <SwiperSlide key={t.name}>
-                    <article className="rounded-[8px] bg-white p-8 shadow-card">
+                    <article className=" bg-white p-8 shadow-card">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <Placeholder label="" rounded="rounded-full" className="h-16 w-16 shrink-0" />
