@@ -111,6 +111,36 @@
   animation-fill-mode: both;
 }
 
+/*
+ * Hero per-slide choreography (Plan.md §6.2, Tier B). Entrance classes run only
+ * while a slide carries Swiper's `swiper-slide-active`; leaving/re-entering that
+ * state replays them — the CSS-only equivalent of the template's script.js
+ * re-applying WOW classes on slide change. slideInLeft/Right keyframes come from
+ * animate.css (imported above); duration/delay ride in per element as vars.
+ */
+/* Only pre-hide when scripting is available; a no-JS visitor sees the hero copy
+ * plainly (Swiper never initialises to reveal it otherwise). Same guardrail as
+ * the reveal system above. */
+@media (scripting: enabled) {
+  .hero-el {
+    visibility: hidden;
+  }
+}
+
+.swiper-slide-active .hero-el {
+  animation-duration: var(--hero-dur, 2s);
+  animation-delay: var(--hero-delay, 0s);
+  animation-fill-mode: both;
+}
+
+.swiper-slide-active .hero-el.is-left {
+  animation-name: slideInLeft;
+}
+
+.swiper-slide-active .hero-el.is-right {
+  animation-name: slideInRight;
+}
+
 /* Tier C — authored from the wireframe; the template's originals are lost. Plan.md §6.4. */
 @keyframes loadJump {
   0%,
@@ -178,6 +208,36 @@
   }
 }
 
+/* Swiper pagination bullets — our styling (script.js is lost). Plan.md §6.2–6.3. */
+.hero-swiper .swiper-pagination {
+  bottom: 32px;
+  left: max(24px, calc((100% - 1290px) / 2 + 24px));
+  width: auto;
+  text-align: left;
+}
+
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  opacity: 0.4;
+  transition: opacity 0.25s;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.hero-swiper {
+  color: #fff;
+}
+
+/* Dot pagination on light sections (Case studies). */
+.dot-pagination {
+  color: var(--color-primary);
+}
+
 .sway-animation {
   animation: swayX 11s ease-in-out infinite;
 }
@@ -200,7 +260,8 @@
  */
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal.is-revealed {
+  .reveal.is-revealed,
+  .hero-el {
     visibility: visible !important;
     animation: none !important;
   }

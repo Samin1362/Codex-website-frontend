@@ -161,6 +161,85 @@ export const BLOG = {
   ],
 } as const;
 
+/**
+ * Hero slides. The template ships identical copy on all 3 slides (filler);
+ * Plan.md §5 calls for three distinct Codex headlines — done here. Only the
+ * background changes per slide in the template; choreography is identical (§6.2).
+ */
+export const HERO = {
+  eyebrow: "Best IT Solution Provider",
+  cta: { label: "Explore More", href: "#services" },
+  slides: [
+    {
+      title: "Excellent It Services for Your Success",
+      body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
+    },
+    {
+      title: "Secure Platforms Built to Scale With You",
+      body: "From cloud infrastructure to cyber security, Codex ships resilient systems that keep your teams moving and your data protected around the clock.",
+    },
+    {
+      title: "Engineering the Technology Behind Your Growth",
+      body: "Web, mobile and connected products delivered end to end — designed, built and supported by a team that treats your roadmap as its own.",
+    },
+  ],
+} as const;
+
+export const CASES = {
+  eyebrow: "From Our Case Studies",
+  title: "We Delivered Best Solution",
+  cta: { label: "View All Case", href: "#0" },
+  items: [
+    { category: "Solution", title: "IT Management", href: "#0" },
+    { category: "Technology", title: "Platform Integration", href: "#0" },
+    { category: "Solution", title: "Web Development", href: "#0" },
+    { category: "Security", title: "Network Security", href: "#0" },
+  ],
+} as const;
+
+/** Placeholder partner marks (Plan.md §7 — real/placeholder brand logos). */
+export const BRANDS = [
+  { name: "Tech Media", mark: "grid" },
+  { name: "Tech Media", mark: "bolt" },
+  { name: "Tech Media", mark: "slash" },
+  { name: "Tech Media", mark: "wave" },
+  { name: "Tech Media", mark: "arrow" },
+] as const;
+
+export const TESTIMONIALS = {
+  eyebrow: "Clients Review",
+  title: "What They Say About Our",
+  body: "It is a long established fact that a reader will be distracted the readable content of a page when looking at layout the point of using lorem the is Ipsum less normal distribution of letters.",
+  items: [
+    {
+      name: "Suborna Tarchera",
+      role: "Web Developer",
+      rating: 4,
+      quote:
+        "Consectetur adipiscing elit. Integer nunc viverra laoreet est the is porta pretium metus aliquam eget maecenas porta is nunc viverra Aenean pulvinar maximus leo",
+    },
+    {
+      name: "Alex Rony",
+      role: "Web Designer",
+      rating: 4,
+      quote:
+        "Consectetur adipiscing elit. Integer nunc viverra laoreet est the is porta pretium metus aliquam eget maecenas porta is nunc viverra Aenean pulvinar maximus leo",
+    },
+  ],
+} as const;
+
+export const CONTACT = {
+  eyebrow: "Talk To Us",
+  title: "How May We Help You!",
+  fields: [
+    { id: "name", label: "Your Name", type: "text", placeholder: "Your name" },
+    { id: "email", label: "Your Email", type: "email", placeholder: "info@example.com" },
+    { id: "subject", label: "Subject", type: "text", placeholder: "Subject" },
+    { id: "phone", label: "Your Phone", type: "text", placeholder: "+1 253 457 7840" },
+  ],
+  submit: "Send Message",
+} as const;
+
 export const FOOTER = {
   blurb:
     "Codex builds the platforms, security and infrastructure modern teams run on — reliable systems delivered with clarity.",
