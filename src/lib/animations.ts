@@ -60,22 +60,25 @@ export type HeroAnimation = {
 };
 
 /**
- * 12 animated elements per slide, identical across all three template slides.
- * Copy cascades 300→500→700→900; the right-hand lines counter-cascade 900→300.
+ * 12 animated elements per slide. Retuned for comfort (2026-07-18): the template
+ * spec was 2–3s slideIns with a 300→900 cascade, but that left the copy off-screen
+ * for most of each cycle. These are quick, short fade-slides (keyframes heroIn* in
+ * globals.css) so content lands fast and then sits still for the long dwell.
+ * `effect` still only encodes direction (is-left / is-right).
  */
 export const HERO_ANIMATIONS = {
-  shapeLeftRegular: { effect: "slideInLeft", duration: 2000, delay: 300 },
-  shapeLeftSolid: { effect: "slideInLeft", duration: 2000, delay: 900 },
-  shapeRightLine: { effect: "slideInRight", duration: 3000, delay: 300 },
-  shapeRightSolid: { effect: "slideInRight", duration: 2000, delay: 300 },
-  rightLine1: { effect: "slideInRight", duration: 2000, delay: 900 },
-  rightLine2: { effect: "slideInRight", duration: 2000, delay: 700 },
-  rightLine3: { effect: "slideInRight", duration: 2000, delay: 500 },
-  rightLine4: { effect: "slideInRight", duration: 2000, delay: 300 },
-  eyebrow: { effect: "slideInRight", duration: 2000, delay: 300 },
-  heading: { effect: "slideInRight", duration: 2000, delay: 500 },
-  paragraph: { effect: "slideInRight", duration: 2000, delay: 700 },
-  cta: { effect: "slideInRight", duration: 2000, delay: 900 },
+  shapeLeftRegular: { effect: "slideInLeft", duration: 1100, delay: 250 },
+  shapeLeftSolid: { effect: "slideInLeft", duration: 1100, delay: 400 },
+  shapeRightLine: { effect: "slideInRight", duration: 1200, delay: 250 },
+  shapeRightSolid: { effect: "slideInRight", duration: 1100, delay: 350 },
+  rightLine1: { effect: "slideInRight", duration: 900, delay: 550 },
+  rightLine2: { effect: "slideInRight", duration: 900, delay: 450 },
+  rightLine3: { effect: "slideInRight", duration: 900, delay: 350 },
+  rightLine4: { effect: "slideInRight", duration: 900, delay: 250 },
+  eyebrow: { effect: "slideInRight", duration: 800, delay: 150 },
+  heading: { effect: "slideInRight", duration: 900, delay: 300 },
+  paragraph: { effect: "slideInRight", duration: 800, delay: 450 },
+  cta: { effect: "slideInRight", duration: 800, delay: 600 },
 } as const satisfies Record<string, HeroAnimation>;
 
 /* ------------------------------------------------------------------ *
@@ -87,10 +90,19 @@ export const HERO_ANIMATIONS = {
 
 export const HERO_SLIDER = {
   effect: "fade",
-  speed: 1200,
-  /** 6s clears the longest entrance (900ms delay + 2000ms duration) before advancing. */
-  autoplayDelay: 6000,
-  loop: true,
+  speed: 800,
+  /**
+   * 8s dwell. Longest entrance now settles by ~1.5s, so the copy sits still for
+   * ~6.5s before the next slide — calm, and never "empty most of the time".
+   */
+  autoplayDelay: 8000,
+  /**
+   * `rewind`, not `loop`. loop clones slides, and clone-syncing breaks under
+   * React StrictMode's dev double-mount — leaving no slide marked active and the
+   * banner blank. rewind cycles back to slide 0 with no clones, so the active
+   * class always lands on a real slide.
+   */
+  rewind: true,
 } as const;
 
 export const CASE_SLIDER = {
