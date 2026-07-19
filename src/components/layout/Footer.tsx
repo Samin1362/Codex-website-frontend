@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Logo } from "./Logo";
 import {
   AnglesRightIcon,
-  ClockIcon,
+  MailIcon,
   PhoneCallIcon,
   SocialIcon,
 } from "@/components/icons";
@@ -94,18 +94,41 @@ export function Footer() {
             </p>
             <ul className="flex flex-col gap-5">
               <li className="flex items-start gap-3">
-                <ClockIcon className="mt-1 shrink-0 text-primary-soft" />
-                <div>
-                  <h5 className="font-heading text-base font-bold">Opening Hours:</h5>
-                  <p className="text-[15px] text-white/70">{SITE.hours}</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
                 <PhoneCallIcon className="mt-1 shrink-0 text-primary-soft" />
                 <div>
                   <h5 className="font-heading text-base font-bold">Phone Call:</h5>
-                  <p className="text-[15px] text-white/70">
-                    {SITE.phone}, {SITE.phoneAlt}
+                  <p className="flex flex-col text-[15px] text-white/70">
+                    {[SITE.phone, SITE.phoneAlt, SITE.phoneAlt2].map((num) => (
+                      <a
+                        key={num}
+                        href={`tel:${num.replace(/[\s-]/g, "")}`}
+                        className="transition hover:text-primary-soft"
+                      >
+                        {num}
+                      </a>
+                    ))}
+                  </p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <MailIcon className="mt-1 shrink-0 text-primary-soft" />
+                <div>
+                  <h5 className="font-heading text-base font-bold">Email &amp; Web:</h5>
+                  <p className="flex flex-col text-[15px] text-white/70">
+                    <a
+                      href={`mailto:${SITE.email}`}
+                      className="transition hover:text-primary-soft"
+                    >
+                      {SITE.email}
+                    </a>
+                    <a
+                      href={`https://${SITE.website}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="transition hover:text-primary-soft"
+                    >
+                      {SITE.website}
+                    </a>
                   </p>
                 </div>
               </li>
