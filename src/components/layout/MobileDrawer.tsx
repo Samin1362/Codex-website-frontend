@@ -95,12 +95,17 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             <LocationIcon className="shrink-0 text-primary-soft" />
             <span>{SITE.address}</span>
           </li>
-          <li className="flex items-center gap-3">
-            <PhoneRingIcon className="shrink-0 text-primary-soft" />
-            <a href={`tel:${SITE.phone}`} className="transition hover:text-white">
-              {SITE.phone}
-            </a>
-          </li>
+          {[SITE.phone, SITE.phoneAlt, SITE.phoneAlt2].map((num) => (
+            <li key={num} className="flex items-center gap-3">
+              <PhoneRingIcon className="shrink-0 text-primary-soft" />
+              <a
+                href={`tel:${num.replace(/[\s-]/g, "")}`}
+                className="transition hover:text-white"
+              >
+                {num}
+              </a>
+            </li>
+          ))}
           <li className="flex items-center gap-3">
             <MailIcon className="shrink-0 text-primary-soft" />
             <a href={`mailto:${SITE.email}`} className="transition hover:text-white">

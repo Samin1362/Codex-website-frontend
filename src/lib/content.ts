@@ -7,10 +7,12 @@
 
 export const SITE = {
   name: "Codex",
-  email: "hello@codex.com",
-  phone: "+208-6666-0112",
-  phoneAlt: "308-5555-0113",
-  address: "4517 Washington Ave. Manchester, Kentucky 39495",
+  email: "info@codexitservice.com",
+  website: "www.codexitservice.com",
+  phone: "+8801984823110",
+  phoneAlt: "+880 1710-697143",
+  phoneAlt2: "+8801754759899",
+  address: "Plot-C/3, Block-D, Road-1, Mirpur-1, Dhaka-1216, Bangladesh",
   hours: "Mon - Sat: 10.00 AM - 4.00 PM",
 } as const;
 

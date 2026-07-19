@@ -58,11 +58,20 @@ export function SiteHeader() {
             </li>
             <li>
               <a
-                href={`tel:${SITE.phone}`}
+                href={`tel:${SITE.phone.replace(/[\s-]/g, "")}`}
                 className="flex items-center gap-2 text-white/85 transition hover:text-white"
               >
                 <PhoneRingIcon className="text-white" />
                 {SITE.phone}
+              </a>
+            </li>
+            <li className="hidden lg:block">
+              <a
+                href={`tel:${SITE.phoneAlt.replace(/[\s-]/g, "")}`}
+                className="flex items-center gap-2 text-white/85 transition hover:text-white"
+              >
+                <PhoneRingIcon className="text-white" />
+                {SITE.phoneAlt}
               </a>
             </li>
           </ul>
