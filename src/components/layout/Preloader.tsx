@@ -49,7 +49,10 @@ export function Preloader() {
   if (gone) return null;
 
   const panelStyle: CSSProperties = {
-    transitionProperty: "transform",
+    // Tailwind v4 drives translate-y-* via the standalone `translate` CSS
+    // property (not `transform`), so the transition must name `translate` or the
+    // split snaps instead of gliding.
+    transitionProperty: "translate",
     transitionDuration: `${PRELOADER.splitDurationMs}ms`,
     transitionTimingFunction: "cubic-bezier(0.76,0,0.24,1)",
   };

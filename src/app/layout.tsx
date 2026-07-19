@@ -56,7 +56,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        {/* <Preloader /> */}
+        <Preloader />
         <CustomCursor />
         <SiteHeader />
         <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
