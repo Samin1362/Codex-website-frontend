@@ -41,23 +41,24 @@ export function About() {
                 />
               </div>
               <div className="relative -ml-16 mb-10 w-[52%]">
+                {/* Video-popup: the looping About clip (public/videos/about.mp4),
+                    16:9 cover-cropped into the square frame. */}
                 <div className="relative aspect-square w-full overflow-hidden border-[6px] border-white shadow-raised">
-                  <Image
-                    src="/images/3.jpeg"
-                    alt="Codex team collaborating around a table"
-                    fill
-                    sizes="(max-width: 1024px) 45vw, 260px"
-                    className="object-cover"
+                  <video
+                    className="absolute inset-0 h-full w-full object-cover"
+                    src="/videos/about.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
                   />
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <a
-                    href="#0"
-                    aria-label="Play video"
-                    className="pulse-ring flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white"
-                  >
+                {/* Decorative play badge with the template's pulse ring. */}
+                <div aria-hidden className="absolute inset-0 flex items-center justify-center">
+                  <span className="pulse-ring flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
                     <PlayIcon />
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>

@@ -8,13 +8,15 @@ import { Container } from "@/components/ui/Container";
 import { CircuitTrace } from "@/components/icons";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { BRAND_SLIDER } from "@/lib/animations";
-import { BRANDS } from "@/lib/content";
+import { TECH_MARKS, type TechMark } from "@/lib/techStack";
 
 /**
- * Brands (Plan.md shot 5 / §6.3, Tier B). A continuous marquee — zero-delay
- * autoplay + linear speed + freeMode is Swiper's idiom for it. Blue band lifted
- * to overlap the Offering section's reserved bottom padding. Logos are
- * placeholder partner marks (Plan.md §7).
+ * Tech bar (Plan.md shot 5 / §6.3) for "Enhance and Pioneer Using Technology
+ * Trends". A continuous marquee — zero-delay autoplay + linear speed + freeMode
+ * is Swiper's idiom for it. Blue band lifted to overlap the Offering section's
+ * reserved bottom padding. Logos are the Codex stack rendered as uniform
+ * monochrome white glyphs + names (simple-icons paths) so they sit at one size
+ * and read cleanly on the blue band.
  */
 export function Brands() {
   const reduced = usePrefersReducedMotion();
@@ -27,7 +29,7 @@ export function Brands() {
           <Swiper
             modules={[Autoplay, FreeMode]}
             slidesPerView="auto"
-            spaceBetween={64}
+            spaceBetween={56}
             loop
             freeMode
             allowTouchMove={false}
@@ -39,9 +41,9 @@ export function Brands() {
             }
             className="relative !ease-linear"
           >
-            {[...BRANDS, ...BRANDS].map((brand, i) => (
+            {[...TECH_MARKS, ...TECH_MARKS].map((mark, i) => (
               <SwiperSlide key={i} className="!w-auto">
-                <BrandLogo mark={brand.mark} name={brand.name} />
+                <BrandLogo mark={mark} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -51,28 +53,18 @@ export function Brands() {
   );
 }
 
-const MARKS: Record<string, string> = {
-  grid: "M2 2h6v6H2zM12 2h6v6h-6zM2 12h6v6H2zM12 12h6v6h-6z",
-  bolt: "M11 1 3 11h6l-2 8 10-12h-7z",
-  slash: "M4 18 14 2M9 18 19 2",
-  wave: "M2 12c3-6 5-6 8 0s5 6 8 0",
-  arrow: "M3 3l7 14 3-6 4 2z",
-};
-
-function BrandLogo({ mark, name }: { mark: string; name: string }) {
+function BrandLogo({ mark }: { mark: TechMark }) {
   return (
-    <div className="flex items-center gap-3 text-white/90 opacity-80 transition-opacity hover:opacity-100">
-      <svg width="30" height="26" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path
-          d={MARKS[mark]}
-          fill={mark === "grid" || mark === "bolt" || mark === "arrow" ? "currentColor" : "none"}
-          stroke="currentColor"
-          strokeWidth={mark === "slash" || mark === "wave" ? 2 : 0}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+    <div className="flex items-center gap-3 text-white/85 opacity-90 transition-opacity hover:text-white hover:opacity-100">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-8 w-8 shrink-0"
+        fill="currentColor"
+        aria-hidden
+      >
+        <path d={mark.path} />
       </svg>
-      <span className="whitespace-nowrap font-heading text-xl font-bold">{name}</span>
+      <span className="whitespace-nowrap font-heading text-xl font-bold">{mark.name}</span>
     </div>
   );
 }

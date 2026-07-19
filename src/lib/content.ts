@@ -204,14 +204,8 @@ export const CASES = {
   ],
 } as const;
 
-/** Placeholder partner marks (Plan.md §7 — real/placeholder brand logos). */
-export const BRANDS = [
-  { name: "Tech Media", mark: "grid" },
-  { name: "Tech Media", mark: "bolt" },
-  { name: "Tech Media", mark: "slash" },
-  { name: "Tech Media", mark: "wave" },
-  { name: "Tech Media", mark: "arrow" },
-] as const;
+// Tech bar marquee marks moved to src/lib/techStack.ts (monochrome simple-icons
+// glyphs rendered white on the blue band — uniform sizing + cohesive theming).
 
 export const TESTIMONIALS = {
   eyebrow: "Clients Review",

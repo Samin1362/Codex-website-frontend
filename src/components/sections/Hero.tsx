@@ -1,8 +1,9 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode, type SyntheticEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import type { Swiper as SwiperClass } from "swiper";
+import { EffectFade, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
@@ -22,6 +23,21 @@ import { HERO } from "@/lib/content";
  */
 export function Hero() {
   const reduced = usePrefersReducedMotion();
+  const swiperRef = useRef<SwiperClass | null>(null);
+
+  /**
+   * Each time the background clip finishes, restart it and advance the slide —
+   * so the slider's cadence is driven by the video loop (~5s), not a fixed
+   * timer. Manual restart (not the `loop` attribute) is what lets us hook the
+   * boundary. Under reduced motion the video never plays, so this never fires
+   * and the slider stays put — which is the intended behaviour there.
+   */
+  const handleVideoLoop = (e: SyntheticEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    video.currentTime = 0;
+    void video.play();
+    swiperRef.current?.slideNext();
+  };
 
   return (
     <section
@@ -32,19 +48,18 @@ export function Hero() {
           "linear-gradient(112deg, #0b1428 0%, #16266b 46%, #1e3aa8 100%)",
       }}
     >
+      <HeroBackground reduced={reduced} onLoop={handleVideoLoop} />
       <HeroShapes />
 
       <Swiper
-        modules={[Autoplay, EffectFade, Pagination]}
+        modules={[EffectFade, Pagination]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         speed={HERO_SLIDER.speed}
         rewind={HERO_SLIDER.rewind}
-        autoplay={
-          reduced
-            ? false
-            : { delay: HERO_SLIDER.autoplayDelay, disableOnInteraction: false }
-        }
+        onSwiper={(s) => {
+          swiperRef.current = s;
+        }}
         pagination={{ clickable: true }}
         className="hero-swiper relative z-10"
       >
@@ -125,14 +140,41 @@ function HeroShapes() {
 
       {/* ── Right cluster — light triangle/chevron outlines ──────────── */}
 
-      {/* Two chevrons pointing right, vertically centred. */}
-      <span className="sway-animation absolute right-[6%] top-[22%] z-[2] h-[240px] w-[180px] text-white/20">
-        <Chevrons />
-      </span>
-
       {/* Faint diagonal lines drifting off the top-right corner. */}
       <span className="absolute right-[3%] top-[8%] z-[1] h-px w-[320px] origin-right -rotate-[52deg] bg-white/10" />
       <span className="absolute right-[9%] top-[6%] z-[1] h-px w-[300px] origin-right -rotate-[52deg] bg-white/[0.07]" />
+    </div>
+  );
+}
+
+/**
+ * Banner background (public/videos/banner.mp4). Full-bleed cover video sitting
+ * BEHIND everything (z-0, under the shapes at their own z and the copy at z-10),
+ * at low opacity so it reads as a subtle moving texture over the navy gradient.
+ * A dark tint over the video protects the white copy's contrast. NOT looping via
+ * the attribute — the parent restarts it on `ended` to advance the slide, so the
+ * slider's rhythm follows the clip. No autoplay under reduced motion.
+ */
+function HeroBackground({
+  reduced,
+  onLoop,
+}: {
+  reduced: boolean;
+  onLoop: (e: SyntheticEvent<HTMLVideoElement>) => void;
+}) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <video
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.22]"
+        src="/videos/banner.mp4"
+        autoPlay={!reduced}
+        muted
+        playsInline
+        preload="metadata"
+        onEnded={onLoop}
+      />
+      {/* Tint over the video to keep the copy legible and the mood on-brand. */}
+      <div className="absolute inset-0 [background:linear-gradient(112deg,rgba(11,20,40,0.55),rgba(22,38,107,0.4)_46%,rgba(30,58,168,0.35))]" />
     </div>
   );
 }
@@ -188,22 +230,6 @@ function Mesh() {
         <path d="M108 2 L70 220" />
         <path d="M180 0 L150 220" />
         <path d="M252 0 L238 220" />
-      </g>
-    </svg>
-  );
-}
-
-function Chevrons() {
-  return (
-    <svg viewBox="0 0 120 90" fill="none" aria-hidden className="h-full w-full">
-      <g
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 12 L52 45 L12 78" />
-        <path d="M58 12 L98 45 L58 78" />
       </g>
     </svg>
   );
