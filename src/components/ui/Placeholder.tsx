@@ -29,7 +29,7 @@ export function Placeholder({
         className="absolute inset-0 opacity-40 [background-image:linear-gradient(#ffffff55_1px,transparent_1px),linear-gradient(90deg,#ffffff55_1px,transparent_1px)] [background-size:26px_26px]"
       />
       {label && (
-        <span className="relative z-10 px-3 text-center text-[13px] font-semibold uppercase tracking-[1.5px] text-primary-dark/70">
+        <span className="relative z-10 px-3 text-center text-xs font-semibold uppercase tracking-[1.5px] text-primary-dark/70">
           {label}
         </span>
       )}

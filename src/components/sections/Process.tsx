@@ -72,7 +72,7 @@ export function Process() {
               </div>
 
               <h4 className="mt-8 font-heading text-2xl font-bold">{step.title}</h4>
-              <p className="mx-auto mt-3 max-w-[300px] text-[15px] text-muted">
+              <p className="mx-auto mt-3 max-w-[300px] text-copy text-muted">
                 {step.body}
               </p>
             </Reveal>

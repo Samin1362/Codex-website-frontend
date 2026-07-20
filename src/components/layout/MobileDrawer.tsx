@@ -2,7 +2,9 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
+import { isActivePath } from "@/lib/nav";
 import {
   CloseIcon,
   LocationIcon,
@@ -11,7 +13,7 @@ import {
   SearchIcon,
   SocialIcon,
 } from "@/components/icons";
-import { NAV_LINKS, SITE, SOCIALS } from "@/lib/content";
+import { NAV_LINKS, SITE, LINKED_SOCIALS } from "@/lib/content";
 
 type MobileDrawerProps = {
   open: boolean;
@@ -23,6 +25,8 @@ type MobileDrawerProps = {
  * sidebar. Overlay + right-hand panel; Escape and overlay click both dismiss.
  */
 export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -36,6 +40,9 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
     <div
       className={`fixed inset-0 z-50 overflow-hidden lg:hidden ${open ? "" : "pointer-events-none"}`}
       aria-hidden={!open}
+      /* Keeps the closed drawer's links out of the Tab order, not just out of
+         the accessibility tree (see SearchOverlay for the same reasoning). */
+      inert={!open}
     >
       {/* Overlay */}
       <button
@@ -69,28 +76,34 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
           <input
             type="search"
             placeholder="Search..."
-            className="h-11 w-full bg-transparent text-[15px] text-white placeholder:text-white/50 focus:outline-none"
+            className="h-11 w-full bg-transparent text-copy text-white placeholder:text-white/50 focus:outline-none"
           />
           <SearchIcon className="text-white/70" />
         </div>
 
         <nav aria-label="Mobile">
           <ul className="flex flex-col">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label} className="border-b border-white/10">
-                <Link
-                  href={link.href}
-                  onClick={onClose}
-                  className="block py-[14px] font-heading text-[17px] font-semibold text-white/90 transition hover:text-primary-soft"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const active = isActivePath(pathname, link.href);
+              return (
+                <li key={link.label} className="border-b border-white/10">
+                  <Link
+                    href={link.href}
+                    onClick={onClose}
+                    aria-current={active ? "page" : undefined}
+                    className={`block py-[14px] font-heading text-nav font-semibold transition hover:text-primary-soft ${
+                      active ? "text-primary-soft" : "text-white/90"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
-        <ul className="mt-8 flex flex-col gap-3 text-[15px] text-white/80">
+        <ul className="mt-8 flex flex-col gap-3 text-copy text-white/80">
           <li className="flex items-center gap-3">
             <LocationIcon className="shrink-0 text-primary-soft" />
             <span>{SITE.address}</span>
@@ -115,7 +128,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         </ul>
 
         <div className="mt-8 flex items-center gap-3">
-          {SOCIALS.map((s) => (
+          {LINKED_SOCIALS.map((s) => (
             <a
               key={s.name}
               href={s.href}

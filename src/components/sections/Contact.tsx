@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -9,54 +10,106 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { Placeholder } from "@/components/ui/Placeholder";
-import { CONTACT, TESTIMONIALS } from "@/lib/content";
+import { CONTACT, SITE, TESTIMONIALS } from "@/lib/content";
 
 /**
  * Contact + Reviews (Plan.md shot 7 / §6.3, Tier B). Left: a gradient form card
  * over a photo (fadeInLeft 200), non-functional like the template. Right: the
  * "Clients Review" header (fadeInUp 0/200/400) and a 1-per-view testimonial
  * Swiper with custom prev/next buttons (fadeInDown).
+ *
+ * `showReviews={false}` (Contact page) drops the reviews column so the form gets
+ * the full width — the page already carries its own testimonials elsewhere, and
+ * a lone form beside an empty half-grid reads broken. The left photo is keyed to
+ * the same flag: it's sized to sit *behind* the two-column layout, so without a
+ * right column it would bleed across the form (§6).
  */
-export function Contact() {
+export function Contact({ showReviews = true }: { showReviews?: boolean }) {
+  const [sent, setSent] = useState(false);
+
+  /**
+   * There is no backend, so the form composes a `mailto:` and hands off to the
+   * visitor's mail client — it genuinely delivers, with no server, no API key
+   * and nothing collecting personal data in transit.
+   *
+   * Trade-off: it needs a configured mail client, and the message leaves from
+   * the visitor's own address. **Swap this for a POST to a real endpoint when
+   * one exists** — the field names already match what a handler would want.
+   */
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const get = (k: string) => String(data.get(k) ?? "").trim();
+
+    const body = [
+      `Name: ${get("name")}`,
+      `Email: ${get("email")}`,
+      `Phone: ${get("phone")}`,
+      "",
+      get("message"),
+    ].join("\n");
+
+    setSent(true);
+    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(
+      get("subject") || "Website enquiry",
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
     <section id="contact" className="relative overflow-hidden bg-mist py-[clamp(64px,10vw,120px)]">
       {/* Photo bleeding off the left edge, behind the form card. */}
-      <div className="absolute inset-y-0 left-0 hidden w-[42%] overflow-hidden lg:block">
-        <Image
-          src="/images/4.jpeg"
-          alt="Codex IT Service workspace"
-          fill
-          sizes="(max-width: 1024px) 0px, 42vw"
-          className="object-cover"
-        />
-      </div>
+      {showReviews && (
+        <div className="absolute inset-y-0 left-0 hidden w-[42%] overflow-hidden lg:block">
+          <Image
+            src="/images/4.jpeg"
+            alt="Codex IT Service workspace"
+            fill
+            sizes="(max-width: 1024px) 0px, 42vw"
+            className="object-cover"
+          />
+        </div>
+      )}
 
       <Container className="relative">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div
+          className={
+            showReviews
+              ? "grid items-center gap-12 lg:grid-cols-2"
+              : "mx-auto w-full max-w-[820px]"
+          }
+        >
           {/* Contact form */}
           <Reveal effect="fadeInLeft" delay={200} className="min-w-0">
-            <div className="gradient-band p-8 text-white shadow-cta sm:p-10 lg:ml-8">
+            <div
+              className={`gradient-band p-8 text-white shadow-cta sm:p-10 ${
+                showReviews ? "lg:ml-8" : ""
+              }`}
+            >
               <Eyebrow tone="light" className="mb-4">
                 {CONTACT.eyebrow}
               </Eyebrow>
               <h2 className="mb-8 text-h2-narrow font-extrabold">{CONTACT.title}</h2>
-              <form onSubmit={(e) => e.preventDefault()} className="grid gap-5 sm:grid-cols-2">
+              <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
                 {CONTACT.fields.map((field) => (
                   <label key={field.id} className="block text-sm font-semibold">
                     {field.label}*
                     <input
+                      name={field.id}
                       type={field.type}
+                      required
                       placeholder={field.placeholder}
-                      className="mt-2 h-12 w-full bg-white px-4 text-[15px] text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
+                      className="mt-2 h-12 w-full bg-white px-4 text-copy text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
                     />
                   </label>
                 ))}
                 <label className="block text-sm font-semibold sm:col-span-2">
                   Message*
                   <textarea
+                    name="message"
                     rows={4}
+                    required
                     placeholder="Write Message"
-                    className="mt-2 w-full bg-white px-4 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
+                    className="mt-2 w-full bg-white px-4 py-3 text-copy text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-white/60"
                   />
                 </label>
                 <button
@@ -65,11 +118,17 @@ export function Contact() {
                 >
                   {CONTACT.submit}
                 </button>
+                <p aria-live="polite" className="text-sm text-white/85 sm:col-span-2">
+                  {sent
+                    ? "Opening your email app with the message ready to send."
+                    : `Goes straight to ${SITE.email}.`}
+                </p>
               </form>
             </div>
           </Reveal>
 
           {/* Reviews */}
+          {showReviews && (
           <div className="min-w-0 lg:pl-6">
             <Reveal effect="fadeInUp" delay={0} className="mb-4">
               <Eyebrow tone="primary">{TESTIMONIALS.eyebrow}</Eyebrow>
@@ -128,6 +187,7 @@ export function Contact() {
               </button>
             </Reveal>
           </div>
+          )}
         </div>
       </Container>
     </section>

@@ -8,7 +8,7 @@ import {
   PhoneCallIcon,
   SocialIcon,
 } from "@/components/icons";
-import { FOOTER, SITE, SOCIALS } from "@/lib/content";
+import { FOOTER, SITE, LINKED_SOCIALS } from "@/lib/content";
 
 /**
  * Dark 4-column footer (Plan.md §5 shot 9). Reveal timings follow §6.1: columns
@@ -49,11 +49,11 @@ export function Footer() {
           {/* Brand column */}
           <Reveal effect="fadeInUp" delay={0}>
             <Logo variant="brand" className="mb-6" />
-            <p className="max-w-[300px] text-[15px] leading-relaxed text-white/70">
+            <p className="max-w-[300px] text-copy leading-relaxed text-white/70">
               {FOOTER.blurb}
             </p>
             <div className="mt-7 flex items-center gap-3">
-              {SOCIALS.map((s) => (
+              {LINKED_SOCIALS.map((s) => (
                 <a
                   key={s.name}
                   href={s.href}
@@ -75,7 +75,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="flex items-center gap-2 text-[15px] text-white/70 transition hover:text-primary-soft"
+                      className="flex items-center gap-2 text-copy text-white/70 transition hover:text-primary-soft"
                     >
                       <AnglesRightIcon className="shrink-0 text-primary-soft" />
                       {link.label}
@@ -89,7 +89,7 @@ export function Footer() {
           {/* Contact column */}
           <Reveal effect="fadeInUp" delay={600}>
             <h3 className="mb-6 font-heading text-xl font-bold">Contact Us</h3>
-            <p className="mb-6 max-w-[240px] text-[15px] text-white/70">
+            <p className="mb-6 max-w-[240px] text-copy text-white/70">
               {SITE.address}
             </p>
             <ul className="flex flex-col gap-5">
@@ -97,7 +97,7 @@ export function Footer() {
                 <PhoneCallIcon className="mt-1 shrink-0 text-primary-soft" />
                 <div>
                   <h5 className="font-heading text-base font-bold">Phone Call:</h5>
-                  <p className="flex flex-col text-[15px] text-white/70">
+                  <p className="flex flex-col text-copy text-white/70">
                     {[SITE.phone, SITE.phoneAlt, SITE.phoneAlt2].map((num) => (
                       <a
                         key={num}
@@ -114,7 +114,7 @@ export function Footer() {
                 <MailIcon className="mt-1 shrink-0 text-primary-soft" />
                 <div>
                   <h5 className="font-heading text-base font-bold">Email &amp; Web:</h5>
-                  <p className="flex flex-col text-[15px] text-white/70">
+                  <p className="flex flex-col text-copy text-white/70">
                     <a
                       href={`mailto:${SITE.email}`}
                       className="transition hover:text-primary-soft"
@@ -139,7 +139,7 @@ export function Footer() {
 
       {/* Copyright bar */}
       <div className="relative border-t border-white/10">
-        <Container className="flex flex-col items-center justify-between gap-3 py-6 text-[15px] text-white/70 md:flex-row">
+        <Container className="flex flex-col items-center justify-between gap-3 py-6 text-copy text-white/70 md:flex-row">
           <Reveal effect="fadeInDown" delay={0} as="p">
             {FOOTER.copyright}
           </Reveal>

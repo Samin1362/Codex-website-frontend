@@ -11,6 +11,7 @@ const ICONS: Record<ServiceIconName, typeof ManageIcon> = {
   manage: ManageIcon,
   shield: HeadsetIcon,
   code: ShieldIcon,
+  support: HeadsetIcon,
 };
 
 /**
@@ -91,7 +92,7 @@ export function About() {
                     </div>
                     <div>
                       <h4 className="font-heading text-lg font-bold">{f.title}</h4>
-                      <p className="mt-1 text-[15px] text-muted">{f.body}</p>
+                      <p className="mt-1 text-copy text-muted">{f.body}</p>
                     </div>
                   </div>
                 );

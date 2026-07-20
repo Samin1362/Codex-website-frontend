@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/Button";
 import {
   CircuitTrace,
   CodeIcon,
+  HeadsetIcon,
   ManageIcon,
   ShieldIcon,
 } from "@/components/icons";
@@ -27,16 +28,26 @@ const ICONS: Record<ServiceIconName, typeof ManageIcon> = {
   manage: ManageIcon,
   shield: ShieldIcon,
   code: CodeIcon,
+  support: HeadsetIcon,
 };
 
 /**
- * Services (Plan.md shot 2). Header fadeInLeft 0/200, CTA fadeInUp 200, three
- * cards bounceInUp @1000ms 0/200/400. The blue "active" background is now a
- * single panel that slides to whichever card the cursor is over — the cards
- * cross-fade their fill so the blue reads as transferring between them. Starts
- * on the middle card (matching the template's static look).
+ * Services (Plan.md shot 2). Header fadeInLeft 0/200, CTA fadeInUp 200, cards
+ * bounceInUp @1000ms 0/200/400. The blue "active" background is a single panel
+ * that slides to whichever card the cursor is over — the cards cross-fade their
+ * fill so the blue reads as transferring between them. Starts on the middle card.
+ *
+ * `variant`: "teaser" (Home) shows the first 3 items with the section header +
+ * "View All Services" CTA; "full" (Services page) shows all 6 items and drops
+ * the header — the page banner already introduces the section (Plan.md §6).
  */
-export function Services() {
+export function Services({
+  variant = "teaser",
+}: {
+  variant?: "teaser" | "full";
+}) {
+  const full = variant === "full";
+  const items = full ? SERVICES.items : SERVICES.items.slice(0, 3);
   const [active, setActive] = useState(1);
   const [armed, setArmed] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -85,24 +96,26 @@ export function Services() {
   return (
     <section id="services" className="section-y">
       <Container>
-        <div className="mb-14 flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <Reveal effect="fadeInLeft" delay={0} className="mb-4">
-              <Eyebrow tone="primary">{SERVICES.eyebrow}</Eyebrow>
-            </Reveal>
-            <Reveal
-              effect="fadeInLeft"
-              delay={200}
-              as="h2"
-              className="text-h2 font-extrabold text-balance"
-            >
-              {SERVICES.title}
+        {!full && (
+          <div className="mb-14 flex flex-wrap items-center justify-between gap-6">
+            <div>
+              <Reveal effect="fadeInLeft" delay={0} className="mb-4">
+                <Eyebrow tone="primary">{SERVICES.eyebrow}</Eyebrow>
+              </Reveal>
+              <Reveal
+                effect="fadeInLeft"
+                delay={200}
+                as="h2"
+                className="text-h2 font-extrabold text-balance"
+              >
+                {SERVICES.title}
+              </Reveal>
+            </div>
+            <Reveal effect="fadeInUp" delay={200}>
+              <Button href={SERVICES.cta.href}>{SERVICES.cta.label}</Button>
             </Reveal>
           </div>
-          <Reveal effect="fadeInUp" delay={200}>
-            <Button href={SERVICES.cta.href}>{SERVICES.cta.label}</Button>
-          </Reveal>
-        </div>
+        )}
 
         <div className="relative">
           {/* Sliding blue highlight — follows the hovered card. */}
@@ -125,7 +138,7 @@ export function Services() {
             className="grid gap-7 md:grid-cols-2 lg:grid-cols-3"
             onMouseLeave={() => setActive(1)}
           >
-            {SERVICES.items.map((item, i) => {
+            {items.map((item, i) => {
               const Icon = ICONS[item.icon];
               const isActive = i === active;
               return (
@@ -155,7 +168,7 @@ export function Services() {
                     {item.title}
                   </h4>
                   <p
-                    className={`relative mt-3 text-[15.5px] leading-relaxed transition-colors duration-500 ${
+                    className={`relative mt-3 text-copy leading-relaxed transition-colors duration-500 ${
                       isActive ? "text-white/85" : "text-muted"
                     }`}
                   >

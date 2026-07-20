@@ -1,34 +1,43 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Placeholder } from "@/components/ui/Placeholder";
-import { ArrowRightIcon, AuthorIcon, CommentsIcon } from "@/components/icons";
+import { AuthorIcon, CommentsIcon } from "@/components/icons";
 import { BLOG } from "@/lib/content";
 
 /**
- * Blog (Plan.md shot 8). Centered header, three cards fadeInUp 0/200/400. Each:
- * photo with an overlapping blue date badge, an author/comments meta row above a
- * divider, title, and a "Read More" link (the first card's link reads active).
+ * Blog (Plan.md shot 8). Each card: photo with an overlapping blue date badge,
+ * an author/comments meta row above a divider, title, and a "Read More" link
+ * (the first card's link reads active).
+ *
+ * `teaser` (Home): centered header + the three newest posts, fadeInUp 0/200/400.
+ * `full` (Blog page): every post, no header — the PageBanner introduces the page.
+ * Reveal delay is per-column (`i % 3`) so each grid row staggers left-to-right
+ * rather than the last row waiting on a second-long cascade (§6).
  */
-export function Blog() {
+export function Blog({ variant = "teaser" }: { variant?: "teaser" | "full" }) {
+  const full = variant === "full";
+  const posts = full ? BLOG.posts : BLOG.posts.slice(0, 3);
+
   return (
     <section id="blog" className="section-y">
       <Container>
-        <SectionHeader
-          eyebrow={BLOG.eyebrow}
-          title={BLOG.title}
-          align="center"
-          className="mb-16"
-        />
+        {!full && (
+          <SectionHeader
+            eyebrow={BLOG.eyebrow}
+            title={BLOG.title}
+            align="center"
+            className="mb-16"
+          />
+        )}
 
         <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {BLOG.posts.map((post, i) => (
+          {posts.map((post, i) => (
             <Reveal
               key={post.title}
               effect="fadeInUp"
-              delay={i * 200}
+              delay={(i % 3) * 200}
               className="overflow-hidden border border-line bg-white shadow-card transition-shadow hover:shadow-raised"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
@@ -52,7 +61,7 @@ export function Blog() {
               </div>
 
               <div className="p-8">
-                <ul className="flex flex-wrap items-center gap-6 border-b border-line pb-5 text-[15px] text-muted">
+                <ul className="flex flex-wrap items-center gap-6 border-b border-line pb-5 text-copy text-muted">
                   <li className="flex items-center gap-2">
                     <AuthorIcon className="text-primary" />
                     <span>By Admin</span>
@@ -63,21 +72,12 @@ export function Blog() {
                   </li>
                 </ul>
 
+                {/* No per-post detail route exists yet, so the title and the
+                    template's "Read More" link are plain text rather than links
+                    to nowhere. Restore both when /blog/[slug] lands. */}
                 <h3 className="mt-5 font-heading text-xl font-bold leading-snug">
-                  <Link href={post.href} className="transition hover:text-primary">
-                    {post.title}
-                  </Link>
+                  {post.title}
                 </h3>
-
-                <Link
-                  href={post.href}
-                  className={`mt-6 inline-flex items-center gap-2 font-heading text-[15px] font-bold transition hover:text-primary ${
-                    i === 0 ? "text-primary" : "text-ink"
-                  }`}
-                >
-                  Read More
-                  <ArrowRightIcon />
-                </Link>
               </div>
             </Reveal>
           ))}
