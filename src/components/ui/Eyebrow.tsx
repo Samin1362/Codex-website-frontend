@@ -55,7 +55,7 @@ export function Eyebrow({
           className={`absolute right-0 top-0 h-4 w-[27px] rounded-full ${filled}`}
         />
       </span>
-      <span className={`text-[15px] font-bold uppercase tracking-[2px] ${text}`}>
+      <span className={`text-copy font-bold uppercase tracking-[2px] ${text}`}>
         {children}
       </span>
     </div>

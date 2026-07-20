@@ -8,13 +8,20 @@ import { REVEAL_DELAY, REVEAL_DURATION } from "@/lib/animations";
 import { COUNTER_STATS } from "@/lib/content";
 
 /**
- * Counter band (Plan.md shot 3 / §6.5). Gradient band lifted to straddle the
- * About section's bottom; four stats bounceInUp @1000ms 0/200/400/800 with the
- * rAF count-up. Circuit-trace motif on the right.
+ * Counter band (Plan.md shot 3 / §6.5). Gradient band with four stats bounceInUp
+ * @1000ms 0/200/400/800 and the rAF count-up. Circuit-trace motif on the right.
+ *
+ * `flush` (default true, Home): lifted with a negative top margin to straddle the
+ * bottom of the section above (About). On sub-pages where it stands alone
+ * (Plan.md §6), pass `flush={false}` for normal vertical spacing.
  */
-export function Counter() {
+export function Counter({ flush = true }: { flush?: boolean }) {
   return (
-    <section className="relative z-10 -mt-[clamp(90px,13vw,150px)]">
+    <section
+      className={`relative z-10 ${
+        flush ? "-mt-[clamp(90px,13vw,150px)]" : "section-y"
+      }`}
+    >
       <Container>
         <div className="gradient-band relative overflow-hidden px-8 py-12 shadow-cta sm:px-14">
           <CircuitTrace className="pointer-events-none absolute right-4 top-1/2 hidden h-40 w-64 -translate-y-1/2 text-white/20 lg:block" />

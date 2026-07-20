@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -11,18 +10,73 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { ArrowRightIcon } from "@/components/icons";
+import { Placeholder } from "@/components/ui/Placeholder";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { CASE_SLIDER } from "@/lib/animations";
 import { CASES } from "@/lib/content";
 
+/** Home shows the first four; the Projects grid shows every case. */
+const TEASER_CASES = CASES.items.slice(0, 4);
+
+/** The card body is shared by both variants so hover/overlay stay identical. */
+function CaseCard({ item }: { item: (typeof CASES.items)[number] }) {
+  return (
+    <article className="group relative aspect-[3/4] overflow-hidden">
+      {item.image ? (
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 340px"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <Placeholder
+          label="Project photo"
+          rounded="rounded-none"
+          className="absolute inset-0 h-full w-full"
+        />
+      )}
+      <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
+      {/* No per-case detail route exists yet, so the title and the template's
+          hover arrow-link are display-only rather than links to nowhere. Restore
+          both when /projects/[slug] lands. */}
+      <div className="absolute inset-x-0 bottom-0 p-7">
+        <span className="text-sm font-semibold text-primary-soft">{item.category}</span>
+        <h3 className="mt-1 font-heading text-2xl font-bold text-white">{item.title}</h3>
+      </div>
+    </article>
+  );
+}
+
 /**
- * Case studies (Plan.md shot 4 / §6.3, Tier B). Header reveals (fadeInLeft 0/200,
- * CTA fadeInUp 200); a `slidesPerView: 'auto'` Swiper of tall image cards that
- * overflow the right edge, with clickable dot pagination below.
+ * Case studies (Plan.md shot 4 / §6.3, Tier B).
+ *
+ * `teaser` (Home): header reveals (fadeInLeft 0/200, CTA fadeInUp 200) above a
+ * `slidesPerView: 'auto'` Swiper of the first four cards, overflowing the right
+ * edge, with clickable dot pagination below.
+ *
+ * `full` (Projects page): every case as a static 3-col grid, no header — the
+ * PageBanner already introduces the page (§6).
  */
-export function CaseStudies() {
+export function CaseStudies({ variant = "teaser" }: { variant?: "teaser" | "full" }) {
   const reduced = usePrefersReducedMotion();
+
+  if (variant === "full") {
+    return (
+      <section id="case-studies" className="section-y">
+        <Container>
+          <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+            {CASES.items.map((item, i) => (
+              <Reveal key={item.title} effect="fadeInUp" delay={(i % 3) * 200}>
+                <CaseCard item={item} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section id="case-studies" className="section-y overflow-hidden">
@@ -60,7 +114,7 @@ export function CaseStudies() {
             momentumVelocityRatio: 0.7,
             sticky: false,
           }}
-          loop={CASES.items.length > 3}
+          loop={TEASER_CASES.length > 3}
           speed={CASE_SLIDER.speed}
           autoplay={
             reduced
@@ -74,35 +128,9 @@ export function CaseStudies() {
           pagination={{ clickable: true, el: ".case-pagination" }}
           className="!overflow-visible"
         >
-          {CASES.items.map((item) => (
+          {TEASER_CASES.map((item) => (
             <SwiperSlide key={item.title} className="!w-[340px] max-w-[80vw]">
-              <article className="group relative aspect-[3/4] overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="340px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-7">
-                  <span className="text-sm font-semibold text-primary-soft">
-                    {item.category}
-                  </span>
-                  <h3 className="mt-1 font-heading text-2xl font-bold text-white">
-                    <Link href={item.href} className="transition hover:text-primary-soft">
-                      {item.title}
-                    </Link>
-                  </h3>
-                </div>
-                <Link
-                  href={item.href}
-                  aria-label={item.title}
-                  className="absolute bottom-7 right-7 flex h-11 w-11 translate-y-2 items-center justify-center bg-primary text-white opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
-                >
-                  <ArrowRightIcon />
-                </Link>
-              </article>
+              <CaseCard item={item} />
             </SwiperSlide>
           ))}
         </Swiper>

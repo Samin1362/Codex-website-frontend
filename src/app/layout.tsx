@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, DM_Sans } from "next/font/google";
+import { Kumbh_Sans } from "next/font/google";
 import "./globals.css";
 import { Preloader } from "@/components/layout/Preloader";
 import { CustomCursor } from "@/components/layout/CustomCursor";
@@ -7,14 +7,13 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollUp } from "@/components/layout/ScrollUp";
 
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+/**
+ * Kumbh Sans is the whole site's typeface — headings and body alike (Plan.md §5).
+ * It's a variable font, so a single import covers the full 300–800 weight range
+ * the components lean on (semibold/bold/extrabold) with no per-weight requests.
+ */
+const kumbhSans = Kumbh_Sans({
+  variable: "--font-kumbh",
   subsets: ["latin"],
 });
 
@@ -50,7 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${sora.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${kumbhSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a href="#main-content" className="skip-link">

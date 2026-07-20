@@ -27,14 +27,21 @@ const ICONS: Record<OfferingIconName, (p: SVGProps<SVGSVGElement>) => React.Reac
 /**
  * Offering (Plan.md shot 5). Dark section, six platform cards bounceInUp @1500ms
  * with the tight 100ms stagger (§6.1). Header fadeInLeft 0/200, CTA fadeInUp 200.
- * Icons are the verbatim inline SVGs from the template. Extra bottom padding
- * leaves room for the Brands band that overlaps in Phase 4.
+ * Icons are the verbatim inline SVGs from the template.
+ *
+ * `overlapBelow` (default true): extra bottom padding leaves room for a Brands
+ * band to overlap it (Home). When Brands isn't the next section (Plan.md §6),
+ * pass `overlapBelow={false}` for a normal bottom padding.
  */
-export function Offering() {
+export function Offering({ overlapBelow = true }: { overlapBelow?: boolean }) {
   return (
     <section
       id="offering"
-      className="relative overflow-hidden bg-night pb-[clamp(140px,20vw,240px)] pt-[clamp(64px,10vw,120px)]"
+      className={`relative overflow-hidden bg-night pt-[clamp(64px,10vw,120px)] ${
+        overlapBelow
+          ? "pb-[clamp(140px,20vw,240px)]"
+          : "pb-[clamp(64px,10vw,120px)]"
+      }`}
     >
       {/* Corner circuit traces */}
       <Reveal

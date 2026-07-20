@@ -29,7 +29,7 @@ export function Button({
   const variantClass =
     variant === "lift"
       ? "px-[34px] py-[18px] text-base shadow-cta hover:-translate-y-[3px]"
-      : "px-7 py-4 text-[15px] hover:brightness-110";
+      : "px-7 py-4 text-copy hover:brightness-110";
 
   const classes = `${BASE} ${variantClass} ${className}`.trim();
 

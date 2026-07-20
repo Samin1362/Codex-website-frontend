@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/Container";
+import { isActivePath } from "@/lib/nav";
 import { Logo } from "./Logo";
 import { MobileDrawer } from "./MobileDrawer";
 import { SearchOverlay } from "./SearchOverlay";
@@ -13,7 +15,7 @@ import {
   SearchIcon,
   SocialIcon,
 } from "@/components/icons";
-import { NAV_LINKS, QUOTE_CTA, SITE, SOCIALS } from "@/lib/content";
+import { NAV_LINKS, QUOTE_CTA, SITE, LINKED_SOCIALS } from "@/lib/content";
 
 /**
  * The full header stack: dark top bar, the sticky white header with its angled
@@ -21,6 +23,7 @@ import { NAV_LINKS, QUOTE_CTA, SITE, SOCIALS } from "@/lib/content";
  * One client island owns all the interactive state (Plan.md §5, shots 1 & 9).
  */
 export function SiteHeader() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -76,7 +79,7 @@ export function SiteHeader() {
             </li>
           </ul>
           <ul className="flex items-center gap-5">
-            {SOCIALS.map((s) => (
+            {LINKED_SOCIALS.map((s) => (
               <li key={s.name}>
                 <a
                   href={s.href}
@@ -108,16 +111,22 @@ export function SiteHeader() {
 
           <nav className="hidden lg:block" aria-label="Primary">
             <ul className="flex items-center gap-9">
-              {NAV_LINKS.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="font-heading text-[17px] font-semibold text-ink transition hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const active = isActivePath(pathname, link.href);
+                return (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      aria-current={active ? "page" : undefined}
+                      className={`font-heading text-nav font-semibold transition hover:text-primary ${
+                        active ? "text-primary" : "text-ink"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
               <li>
                 <button
                   type="button"
@@ -134,7 +143,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-4">
             <Link
               href={QUOTE_CTA.href}
-              className="gradient-brand hidden items-center gap-[10px] px-7 py-4 text-[15px] font-bold text-white shadow-cta transition hover:brightness-110 lg:inline-flex"
+              className="gradient-brand hidden items-center gap-[10px] px-7 py-4 text-copy font-bold text-white shadow-cta transition hover:brightness-110 lg:inline-flex"
             >
               {QUOTE_CTA.label}
               <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden>

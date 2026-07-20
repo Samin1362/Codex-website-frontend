@@ -13,16 +13,24 @@ import { TECH_MARKS, type TechMark } from "@/lib/techStack";
 /**
  * Tech bar (Plan.md shot 5 / §6.3) for "Enhance and Pioneer Using Technology
  * Trends". A continuous marquee — zero-delay autoplay + linear speed + freeMode
- * is Swiper's idiom for it. Blue band lifted to overlap the Offering section's
- * reserved bottom padding. Logos are the Codex stack rendered as uniform
+ * is Swiper's idiom for it. Logos are the Codex stack rendered as uniform
  * monochrome white glyphs + names (simple-icons paths) so they sit at one size
  * and read cleanly on the blue band.
+ *
+ * `flush` (default true, Home): the band is lifted with a negative top margin to
+ * overlap the Offering section's reserved bottom padding. On sub-pages where
+ * Offering isn't directly above (Plan.md §6), pass `flush={false}` to render it
+ * as a normal standalone band with its own vertical spacing.
  */
-export function Brands() {
+export function Brands({ flush = true }: { flush?: boolean }) {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <section className="relative z-10 -mt-[clamp(90px,13vw,140px)]">
+    <section
+      className={`relative z-10 ${
+        flush ? "-mt-[clamp(90px,13vw,140px)]" : "section-y"
+      }`}
+    >
       <Container>
         <div className="gradient-band relative overflow-hidden px-6 py-10 shadow-cta">
           <CircuitTrace className="pointer-events-none absolute right-0 top-0 hidden h-full w-72 text-white/15 lg:block" />
