@@ -3,7 +3,6 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { HeadsetIcon, ManageIcon, PlayIcon, ShieldIcon } from "@/components/icons";
 import { ABOUT, type ServiceIconName } from "@/lib/content";
 
@@ -105,13 +104,6 @@ export function About() {
               className="mt-11 flex flex-wrap items-center gap-7"
             >
               <Button href={ABOUT.cta.href}>{ABOUT.cta.label}</Button>
-              <div className="flex items-center gap-3">
-                <Placeholder label="" rounded="rounded-full" className="h-12 w-12" />
-                <div>
-                  <h5 className="font-heading font-bold">{ABOUT.founder.name}</h5>
-                  <span className="text-sm text-muted">{ABOUT.founder.role}</span>
-                </div>
-              </div>
             </Reveal>
           </div>
         </div>

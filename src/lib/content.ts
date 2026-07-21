@@ -22,7 +22,10 @@ export const NAV_LINKS: { label: string; href: string }[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
-  { label: "Blog", href: "/blog" },
+  // Blog temporarily disabled — route lives in app/_blog (private folder). To
+  // restore: un-comment here, in FOOTER, the home page + search index, and
+  // rename app/_blog back to app/blog.
+  // { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -124,49 +127,77 @@ export const PAGES: Record<PageKey, PageMeta> = {
 };
 
 /**
- * Legal page bodies. **Generic boilerplate — must be reviewed by a lawyer before
- * launch.** It is not tailored to Bangladeshi law, and deliberately makes no
- * claims about analytics, cookies or third-party processors that we haven't
- * verified. Edit to match what the business actually does.
+ * Legal page bodies (Content.md — company-supplied). **Still recommended for
+ * lawyer review before launch**, and the effective date needs to be filled in
+ * (see PAGES.terms / PAGES.privacy intro — currently no date is shown).
  */
 export const LEGAL: Record<"terms" | "privacy", { heading: string; body: string[] }[]> = {
   terms: [
     {
-      heading: "Acceptance of Terms",
+      heading: "Company Information",
       body: [
-        "By accessing this website or engaging Codex IT Service Ltd. for services, you agree to these terms. If you do not agree with them, please do not use the site.",
-        "We may update these terms from time to time. Continued use of the site after a change takes effect means you accept the revised terms.",
+        "Welcome to CODEX IT Service Ltd. These Terms & Conditions govern your access to and use of our website and professional services. By using this website or engaging our services, you agree to these terms.",
+        "CODEX IT Service Ltd. is a technology solutions company providing software development, web and mobile applications, cloud infrastructure, cybersecurity, IT consulting, and managed technology services.",
       ],
     },
     {
-      heading: "Use of the Site",
+      heading: "Scope of Services",
       body: [
-        "You agree to use this website lawfully and not to attempt to disrupt it, gain unauthorised access to it, or use it to distribute harmful software or unsolicited communications.",
-        "The content on this site is provided for general information. We work to keep it accurate, but we make no warranty that it is complete, current or error-free.",
+        "All projects are delivered according to the agreed proposal, quotation, contract, or Statement of Work (SOW). Any additional work requested outside the agreed scope may require a revised timeline and additional fees.",
       ],
     },
     {
       heading: "Intellectual Property",
       body: [
-        "The design, text, graphics and logos on this site are owned by Codex IT Service Ltd. or used under licence. You may not reproduce or redistribute them commercially without written permission.",
+        "Unless otherwise agreed in writing, all intellectual property created during a project remains the property of CODEX IT Service Ltd. until full payment has been received. Upon completion of payment, ownership is transferred according to the applicable agreement.",
       ],
     },
     {
-      heading: "Services & Engagements",
+      heading: "Client Responsibilities",
       body: [
-        "Enquiries submitted through this site do not by themselves create a contract. Project scope, deliverables, timelines and fees are set out in a separate written agreement between you and Codex.",
+        "Clients are responsible for providing accurate information, project requirements, content, approvals, and timely feedback necessary for successful project delivery.",
+      ],
+    },
+    {
+      heading: "Confidentiality",
+      body: [
+        "We respect the confidentiality of all client information and may enter into a Non-Disclosure Agreement (NDA) where required.",
+      ],
+    },
+    {
+      heading: "Payments",
+      body: [
+        "Invoices are payable according to the agreed payment schedule. Delays in payment may affect project timelines or service availability.",
+      ],
+    },
+    {
+      heading: "Third-Party Services",
+      body: [
+        "Projects may include integrations with third-party software or services. Their availability, pricing, and functionality are governed by the respective providers.",
+      ],
+    },
+    {
+      heading: "Warranty & Support",
+      body: [
+        "Any warranty or maintenance services are provided only where included within the signed agreement or maintenance plan.",
       ],
     },
     {
       heading: "Limitation of Liability",
       body: [
-        "To the extent permitted by law, Codex IT Service Ltd. is not liable for indirect or consequential loss arising from use of this website. Nothing here limits liability that cannot lawfully be limited.",
+        "CODEX IT Service Ltd. shall not be liable for indirect, incidental, or consequential losses arising from the use of our website or services, except where required by applicable law.",
       ],
     },
     {
-      heading: "Contact",
+      heading: "Governing Law",
       body: [
-        "Questions about these terms can be sent to info@codexitservice.com, or to our office at Plot-C/3, Block-D, Road-1, Mirpur-1, Dhaka-1216, Bangladesh.",
+        "These Terms & Conditions shall be governed by the laws applicable in the jurisdiction where the service agreement is executed unless otherwise agreed in writing.",
+      ],
+    },
+    {
+      heading: "Changes",
+      body: [
+        "We may update these Terms & Conditions periodically. Continued use of our website constitutes acceptance of the updated version.",
       ],
     },
   ],
@@ -174,39 +205,56 @@ export const LEGAL: Record<"terms" | "privacy", { heading: string; body: string[
     {
       heading: "Information We Collect",
       body: [
-        "When you submit the contact form we receive the name, email address, phone number, subject and message you provide. We collect this so that we can respond to your enquiry.",
-        "We ask only for what we need to reply to you. Please do not send confidential or sensitive information through the contact form.",
+        "CODEX IT Service Ltd. is committed to protecting your privacy and handling your personal data responsibly and transparently.",
+        "We may collect: name, company name, email address, phone number, billing information, project requirements, technical information (IP address, browser type, device information) and website usage analytics.",
       ],
     },
     {
       heading: "How We Use Your Information",
       body: [
-        "We use the details you send to respond to your enquiry, to discuss and deliver services you have asked about, and to keep records of our correspondence.",
-        "We do not sell your personal information, and we do not use it for advertising.",
+        "Your information may be used to respond to enquiries, deliver requested services, prepare quotations and contracts, manage client projects, improve our website and services, communicate important service updates, and comply with legal obligations.",
       ],
     },
     {
-      heading: "Sharing",
+      heading: "Data Protection",
       body: [
-        "We do not share your information with third parties except where it is necessary to deliver a service you have requested, or where we are required to do so by law.",
+        "We implement appropriate technical and organisational security measures designed to protect personal data against unauthorised access, disclosure, alteration, or destruction.",
       ],
     },
     {
-      heading: "Retention & Security",
+      heading: "Data Sharing",
       body: [
-        "We keep enquiry correspondence for as long as needed to serve you and to meet our record-keeping obligations, then delete it. We take reasonable technical and organisational measures to protect the information we hold.",
+        "We do not sell personal information. Data may be shared only with trusted service providers who support our business operations or where required by law.",
+      ],
+    },
+    {
+      heading: "Cookies",
+      body: [
+        "Our website uses cookies to improve functionality, analyse website performance, and enhance user experience. Users may control cookie preferences through their browser settings.",
+      ],
+    },
+    {
+      heading: "Data Retention",
+      body: [
+        "Personal information is retained only for as long as necessary to fulfil the purposes described in this policy or to comply with applicable legal requirements.",
       ],
     },
     {
       heading: "Your Rights",
       body: [
-        "You can ask us what personal information we hold about you, ask us to correct it, or ask us to delete it. Write to info@codexitservice.com and we will respond.",
+        "Where applicable, users may have the right to access their personal data, correct inaccurate information, request deletion, restrict processing, object to processing, and request data portability.",
       ],
     },
     {
-      heading: "Contact",
+      heading: "GDPR Compliance",
       body: [
-        "For any privacy question, contact info@codexitservice.com or write to Plot-C/3, Block-D, Road-1, Mirpur-1, Dhaka-1216, Bangladesh.",
+        "Where applicable, CODEX IT Service Ltd. processes personal data in accordance with the principles of the General Data Protection Regulation (GDPR) and other applicable privacy laws.",
+      ],
+    },
+    {
+      heading: "Contact Us",
+      body: [
+        "For any privacy question, contact info@codexitservice.com or visit www.codexitservice.com. You can also write to us at Plot-C/3, Block-D, Road-1, Mirpur-1, Dhaka-1216, Bangladesh.",
       ],
     },
   ],
@@ -251,32 +299,32 @@ export const SERVICES = {
     {
       icon: "manage" as ServiceIconName,
       title: "IT Management",
-      body: "Pellentesque nec the condimentum nec lorem nulla augue est ultricies ac iaculis ut euismod quis sapien.",
+      body: "Reliable IT management that keeps your technology environment secure, stable and efficient — from infrastructure monitoring to maintenance and strategic IT planning.",
     },
     {
       icon: "shield" as ServiceIconName,
       title: "Cyber Security",
-      body: "Pellentesque nec the condimentum nec lorem nulla augue est ultricies ac iaculis ut euismod quis sapien.",
+      body: "Proactive cybersecurity that reduces business risk — network security, endpoint protection, vulnerability assessments, access control and security best practices.",
     },
     {
       icon: "code" as ServiceIconName,
       title: "Web Development",
-      body: "Pellentesque nec the condimentum nec lorem nulla augue est ultricies ac iaculis ut euismod quis sapien.",
+      body: "Custom websites and web applications that combine modern design with high performance — responsive, secure, scalable and SEO-friendly by design.",
     },
     {
       icon: "support" as ServiceIconName,
       title: "24/7 IT Support",
-      body: "Pellentesque nec the condimentum nec lorem nulla augue est ultricies ac iaculis ut euismod quis sapien.",
+      body: "Timely technical support that minimizes downtime — remote troubleshooting, system maintenance and emergency response to keep your business operational.",
     },
     {
       icon: "manage" as ServiceIconName,
       title: "Cloud Infrastructure",
-      body: "Pellentesque nec the condimentum nec lorem nulla augue est ultricies ac iaculis ut euismod quis sapien.",
+      body: "Secure, scalable cloud technology that improves flexibility and performance — cloud migration, deployment, server management, backups and ongoing optimization.",
     },
     {
       icon: "shield" as ServiceIconName,
       title: "Data Security",
-      body: "Pellentesque nec the condimentum nec lorem nulla augue est ultricies ac iaculis ut euismod quis sapien.",
+      body: "Protecting your business information with secure backups, encryption, access management and disaster recovery planning for true business continuity.",
     },
   ],
 } as const;
@@ -292,28 +340,27 @@ export const CTA = {
 export const ABOUT = {
   eyebrow: "About Codex",
   title: "We Strive to Offer Intelligent Business Solutions",
-  body: "Consectetur adipiscing elit aenean scelerisque augue vitae consequat, eget congue velit in cursus sodales the turpis euismod quis sapien euismod quis sapien the condimentum nec lorem nulla augue.",
+  body: "CODEX IT Service Ltd. delivers professional technology solutions that enable businesses to innovate, streamline operations and grow with confidence. Our expertise spans custom software development, enterprise web and mobile applications, cloud infrastructure, cybersecurity and managed IT services — every project approached with a strong focus on quality, security, performance and long-term maintainability.",
   features: [
     {
       icon: "manage" as ServiceIconName,
-      title: "Best Services",
-      body: "Scelerisque augue the consequat sodales",
+      title: "Trusted Expertise",
+      body: "A skilled team delivering secure, scalable technology solutions.",
     },
     {
       icon: "shield" as ServiceIconName,
-      title: "24/7 Call Support",
-      body: "Scelerisque augue the consequat sodales",
+      title: "24/7 IT Support",
+      body: "Dependable support that keeps your business running without downtime.",
     },
   ],
   cta: { label: "Explore More", href: "/services" },
-  founder: { name: "Ronald Richards", role: "Co, Founder" },
 } as const;
 
 export const COUNTER_STATS = [
-  { target: 6561, suffix: "+", label: "Satisfied Clients" },
-  { target: 600, suffix: "+", label: "Finished Projects" },
-  { target: 250, suffix: "+", label: "Skilled Experts" },
-  { target: 590, suffix: "+", label: "Media Posts" },
+  { target: 50, suffix: "+", label: "Satisfied Clients" },
+  { target: 100, suffix: "+", label: "Projects Completed" },
+  { target: 15, suffix: "+", label: "IT Professionals" },
+  { target: 98, suffix: "%", label: "Client Satisfaction" },
 ] as const;
 
 export type OfferingIconName =
@@ -345,19 +392,19 @@ export const PROCESS = {
     {
       n: 1,
       title: "Define Requirements",
-      body: "In a free hour, when our power of choice is untrammelled and when nothing prevents dolor sit amet, consectetur",
+      body: "We start by understanding your goals, challenges and requirements in detail — defining clear scope, deliverables and timelines before any work begins.",
       image: "/images/7.png",
     },
     {
       n: 2,
       title: "Design & Prototyping",
-      body: "In a free hour, when our power of choice is untrammelled and when nothing prevents dolor sit amet, consectetur",
+      body: "Our team designs the architecture and builds interactive prototypes, refining the solution with your feedback until it fits your business perfectly.",
       image: "/images/8.png",
     },
     {
       n: 3,
       title: "Final Solution",
-      body: "In a free hour, when our power of choice is untrammelled and when nothing prevents dolor sit amet, consectetur",
+      body: "We develop, test and deploy the final solution with a focus on performance and security — backed by ongoing support to keep everything running.",
       image: "/images/9.png",
     },
   ],
@@ -416,26 +463,25 @@ export const BLOG = {
 } as const;
 
 /**
- * Hero slides. The template ships identical copy on all 3 slides (filler) — we
- * match that here so the rotating banner always reads exactly like the reference
- * (only the choreography replays per slide, §6.2). Distinct Codex headlines land
- * with the real copy pass in Phase 5.
+ * Hero slides. Real Codex positioning derived from the company's services and
+ * about copy (Content.md gave no hero-specific text) — three distinct headlines
+ * the rotating banner cycles through. Swap in marketing-approved copy any time.
  */
 export const HERO = {
   eyebrow: "Best IT Solution Provider",
   cta: { label: "Explore More", href: "#services" },
   slides: [
     {
-      title: "Excellent It Services for Your Success",
-      body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
+      title: "Reliable IT Solutions for Your Business Growth",
+      body: "CODEX IT Service Ltd. delivers custom software, secure cloud infrastructure and managed IT services that help businesses innovate, streamline operations and grow with confidence.",
     },
     {
-      title: "Excellent It Services for Your Success",
-      body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
+      title: "Custom Software & Web Development",
+      body: "From enterprise web and mobile applications to platform integrations, we build high-performance solutions engineered for quality, security and long-term maintainability.",
     },
     {
-      title: "Excellent It Services for Your Success",
-      body: "Consectetur adipiscing elit aenean scelerisque at augue vitae consequat quisque eget congue velit in cursus leo sed sodales est eget turpis.",
+      title: "Cyber Security & 24/7 IT Support",
+      body: "Protect your business with proactive security, dependable technical support and resilient infrastructure — so your operations stay secure, stable and always running.",
     },
   ],
 } as const;
@@ -445,22 +491,23 @@ export const CASES = {
   title: "We Delivered Best Solution",
   cta: { label: "View All Case", href: "/projects" },
   /**
-   * First four feed the Home slider; the full set fills the Projects grid
-   * (`<CaseStudies variant="full" />`) at two clean rows of three.
+   * Codex's real portfolio (Content.md). First four feed the Home slider; the
+   * full eight fill the Projects grid (`<CaseStudies variant="full" />`).
    *
-   * `image: null` renders a Placeholder (Tier D). The remaining stock art in
-   * public/images is branded marketing collateral with baked-in headline text
-   * (logo lockups, the 4-step process infographic), which fights the card's own
-   * title overlay — so the last entry waits on a real project photo rather than
-   * borrowing one that says the wrong thing.
+   * `image` reuses the generic blue tech art in public/images (no baked-in
+   * headline text) for the first five, matched loosely to each project's domain.
+   * `image: null` renders a Placeholder — swap in a real project screenshot when
+   * available. `category` shows the project type; `title` is the product name.
    */
   items: [
-    { category: "Solution", title: "IT Management", image: "/images/12.png" },
-    { category: "Technology", title: "Platform Integration", image: "/images/10.png" },
-    { category: "Solution", title: "Web Development", image: "/images/13.png" },
-    { category: "Security", title: "Network Security", image: "/images/11.png" },
-    { category: "Infrastructure", title: "Cloud Migration", image: "/images/15.png" },
-    { category: "Support", title: "Managed Service Desk", image: null },
+    { category: "Food & Grocery Delivery", title: "DeliGo", image: "/images/10.png" },
+    { category: "Ride-Hailing (TVDE)", title: "DeliGo Ride", image: "/images/15.png" },
+    { category: "Business Messaging", title: "CallsChat", image: "/images/12.png" },
+    { category: "Hotel Reservation", title: "Hotel Booking Platform", image: "/images/13.png" },
+    { category: "FinTech & Payments", title: "Money Transfer Platform", image: "/images/11.png" },
+    { category: "Multi-Vendor Marketplace", title: "E-Commerce Platform", image: null },
+    { category: "Healthcare & Medical", title: "Clinic Management", image: null },
+    { category: "Android & iOS", title: "Mobile Application", image: null },
   ],
 } as const;
 
@@ -469,22 +516,22 @@ export const CASES = {
 
 export const TESTIMONIALS = {
   eyebrow: "Clients Review",
-  title: "What They Say About Our",
-  body: "It is a long established fact that a reader will be distracted the readable content of a page when looking at layout the point of using lorem the is Ipsum less normal distribution of letters.",
+  title: "What They Say About Us",
+  body: "Trusted by businesses who rely on us to build, secure and support the technology their operations run on.",
   items: [
     {
-      name: "Suborna Tarchera",
-      role: "Web Developer",
-      rating: 4,
+      name: "Michael Anderson",
+      role: "Operations Manager, Horizon Business Solutions",
+      rating: 5,
       quote:
-        "Consectetur adipiscing elit. Integer nunc viverra laoreet est the is porta pretium metus aliquam eget maecenas porta is nunc viverra Aenean pulvinar maximus leo",
+        "CODEX IT Service Ltd. developed our business website exactly as we envisioned. Their communication was excellent, and the project was delivered on schedule. We highly recommend their services.",
     },
     {
-      name: "Alex Rony",
-      role: "Web Designer",
-      rating: 4,
+      name: "Sarah Mitchell",
+      role: "Director, Nova Digital Technologies",
+      rating: 5,
       quote:
-        "Consectetur adipiscing elit. Integer nunc viverra laoreet est the is porta pretium metus aliquam eget maecenas porta is nunc viverra Aenean pulvinar maximus leo",
+        "The team at CODEX IT Service Ltd. provided outstanding software development and technical support. Their professionalism and attention to detail exceeded our expectations.",
     },
   ],
 } as const;
@@ -496,22 +543,22 @@ export const CONTACT = {
     { id: "name", label: "Your Name", type: "text", placeholder: "Your name" },
     { id: "email", label: "Your Email", type: "email", placeholder: "info@example.com" },
     { id: "subject", label: "Subject", type: "text", placeholder: "Subject" },
-    { id: "phone", label: "Your Phone", type: "text", placeholder: "+1 253 457 7840" },
+    { id: "phone", label: "Your Phone", type: "text", placeholder: "+880 1984-823110" },
   ],
   submit: "Send Message",
 } as const;
 
 export const FOOTER = {
   blurb:
-    "Codex builds the platforms, security and infrastructure modern teams run on — reliable systems delivered with clarity.",
+    "CODEX IT Service Ltd. delivers professional technology solutions that help businesses innovate, streamline operations and grow with confidence.",
   columns: [
     {
       title: "IT Solution",
       links: [
         "IT Management",
-        "SEO Optimization",
-        "Web Development",
         "Cyber Security",
+        "Web Development",
+        "Cloud Infrastructure",
         "Data Security",
       ].map((label) => ({ label, href: "/services" })),
     },
@@ -521,7 +568,8 @@ export const FOOTER = {
         { label: "About Codex", href: "/about" },
         { label: "Our Services", href: "/services" },
         { label: "Our Projects", href: "/projects" },
-        { label: "Our Blog", href: "/blog" },
+        // Blog temporarily disabled (see NAV_LINKS).
+        // { label: "Our Blog", href: "/blog" },
         { label: "Contact Us", href: "/contact" },
       ],
     },

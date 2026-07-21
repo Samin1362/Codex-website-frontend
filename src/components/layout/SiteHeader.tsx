@@ -100,10 +100,16 @@ export function SiteHeader() {
           scrolled ? "shadow-[0_6px_24px_rgba(16,24,64,0.08)]" : ""
         }`}
       >
-        {/* Angled gradient wedge behind the logo — full-bleed to the left edge. */}
+        {/* Angled gradient wedge behind the logo — full-bleed to the left edge.
+            The width is anchored to the *centred container* (50% - halfWidth),
+            not the viewport, so the wedge always clears the logo by a constant
+            margin no matter how wide the screen gets. The `* 1.0638` (= 1/0.94)
+            pre-compensates for the 94% clip slant so the wedge's narrow bottom
+            edge still covers the logo. A `max()` floor keeps it sensible on
+            narrow screens. */}
         <div
           aria-hidden
-          className="gradient-brand pointer-events-none absolute inset-y-0 left-0 w-[min(46%,200px)] [clip-path:polygon(0_0,100%_0,90%_100%,0_100%)] lg:w-[min(28%,400px)]"
+          className="gradient-brand pointer-events-none absolute inset-y-0 left-0 w-[max(210px,calc((50%_-_300px)*1.0638))] [clip-path:polygon(0_0,100%_0,94%_100%,0_100%)] lg:w-[max(340px,calc((50%_-_480px)*1.0638))]"
         />
 
         <Container className="relative flex h-[88px] items-center justify-between">
