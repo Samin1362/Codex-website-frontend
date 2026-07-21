@@ -7,7 +7,6 @@ import { Offering } from "@/components/sections/Offering";
 import { Brands } from "@/components/sections/Brands";
 import { Process } from "@/components/sections/Process";
 import { Contact } from "@/components/sections/Contact";
-import { Blog } from "@/components/sections/Blog";
 
 /**
  * Full section composition (Plan.md §5). Server Component; each section is its
@@ -26,7 +25,6 @@ export default function Home() {
       <Brands />
       <Process />
       <Contact />
-      <Blog />
     </main>
   );
 }

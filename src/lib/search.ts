@@ -1,4 +1,4 @@
-import { BLOG, CASES, PAGES, SERVICES, type PageKey } from "@/lib/content";
+import { CASES, PAGES, SERVICES, type PageKey } from "@/lib/content";
 
 export type SearchResult = {
   title: string;
@@ -20,7 +20,7 @@ const PAGE_KEYS: PageKey[] = [
   "about",
   "services",
   "projects",
-  "blog",
+  // "blog" — route disabled (app/_blog); omitted so search never links to a 404.
   "contact",
   "terms",
   "privacy",
@@ -48,13 +48,6 @@ export const SEARCH_INDEX: SearchResult[] = [
     kind: "Project",
     href: "/projects",
     keywords: c.category,
-  })),
-
-  ...BLOG.posts.map((p) => ({
-    title: p.title,
-    kind: "Article",
-    href: "/blog",
-    keywords: `${p.day} ${p.month}`,
   })),
 ];
 
